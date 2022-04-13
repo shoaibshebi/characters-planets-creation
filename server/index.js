@@ -1,40 +1,45 @@
-const keys = require("./keys");
+const Koa = require("koa");
+const { ApolloServer, gql } = require("apollo-server-koa");
+const queries = require("./knex/queries/queries.js");
 
-// Express Application setup
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const typeDefs = gql`
+  type Planet {
+    name: String
+    description: String
+    code: String
+    picture_url: String
+  }
+  type Query {
+    planets: [Planet]
+  }
+`;
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const schema = {
+  typeDefs,
+  resolvers: {
+    // Prototypes for GET
+    Query: {
+      planets: (_) => queries.getPlanets(),
+    },
+  },
+};
 
-// Postgres client setup
-const { Pool } = require("pg");
-const pgClient = new Pool({
-  user: keys.pgUser,
-  host: keys.pgHost,
-  database: keys.pgDatabase,
-  password: keys.pgPassword,
-  port: keys.pgPort,
-});
+//configuring apollo server
+let apolloServer = null;
+let app = null;
+const startServer = async () => {
+  apolloServer = new ApolloServer({
+    typeDefs: schema.typeDefs,
+    resolvers: schema.resolvers,
+  });
+  await apolloServer.start();
 
-pgClient.on("connect", (client) => {
-  client
-    .query("CREATE TABLE IF NOT EXISTS values (number INT)")
-    .catch((err) => console.log("PG ERROR", err));
-});
-
-//Express route definitions
-app.get("/", (req, res) => {
-  res.send("Hi 🚀");
-});
-
-// get the values
-app.get("/values/all", async (req, res) => {
-  res.send("Hi all 🚀");
-});
-
-app.listen(5000, (err) => {
-  console.log("Listening");
-});
+  app = new Koa();
+  apolloServer.applyMiddleware({ app });
+  app.listen({ port: 3000 }, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:3000${apolloServer.graphqlPath}`
+    )
+  );
+};
+startServer();

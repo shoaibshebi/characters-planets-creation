@@ -6,11 +6,18 @@
   "author": "shoaibshebi",
   "license": "ISC",
   "dependencies": {
-    "express": "4.16.3",
-    "pg": "8.0.3",
+    "apollo-server-koa": "^3.6.7",
+    "body-parser": "*",
     "cors": "2.8.4",
+    "graphql": "^16.3.0",
+    "graphql-tools": "^8.2.6",
+    "knex": "^1.0.7",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-helmet": "^6.1.0",
+    "koa-router": "^10.1.1",
     "nodemon": "1.18.3",
-    "body-parser": "*"
+    "pg": "^8.0.3"
   },
   "scripts": {
     "dev": "nodemon",
