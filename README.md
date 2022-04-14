@@ -1,6 +1,7 @@
 # Characters and Planets Creation application 🌎
 
-Note related commits & docs: Emojies in commits and docs, make the dry-code world a bit joyfull
+#### Note related commits & docs: Emojies in commits and docs, make the dry-code world a bit joyfull
+
 KEY: 📦 NEW, 👌 IMPROVE, 🐛 FIX, 📖 DOC, 🚀 RELEASE, and 🤖 TEST
 
 It contains React client, Node.js backend, PostgreSQL and Nginx
