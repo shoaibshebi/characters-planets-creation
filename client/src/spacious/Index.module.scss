@@ -1,0 +1,28 @@
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+}
+.innerContainer {
+  width: 70%;
+  height: 100%;
+}
+.title {
+  font-weight: 800;
+}
+.pageTitles {
+  width: 50%;
+}
+.pagesTitle {
+  color: #121c33;
+  padding: 8px 24px;
+  cursor: pointer;
+}
+.clicked {
+  background-color: rgba(18, 28, 51, 0.05);
+  border-radius: 8px;
+}

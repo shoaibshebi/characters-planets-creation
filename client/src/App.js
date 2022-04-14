@@ -1,9 +1,14 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Box } from "@mui/material";
 
-import "./App.css";
+import Spacious from "./spacious/Index.jsx";
 
 function App() {
-  return <div>Hey you are up now 🚀!</div>;
+  return (
+    <Box className="App">
+      <Spacious />
+    </Box>
+  );
 }
 
 export default App;

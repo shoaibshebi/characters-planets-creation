@@ -1,0 +1,17 @@
+.container {
+  padding: 10px;
+  position: absolute;
+  height: calc(90vh - 65px);
+  position: absolute;
+  width: 408px;
+  top: 40px;
+  background: #ffffff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 32px;
+  right: 0;
+}
+.characters {
+  height: 300px;
+  overflow: auto;
+  padding: 5px;
+}
