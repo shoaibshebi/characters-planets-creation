@@ -9,7 +9,11 @@ exports.up = (knex) =>
       table.string("name").notNullable();
       table.string("description").notNullable();
       table.string("picture_url");
-      table.foreign("c_id").references("planets.p_id").withKeyName("fp_id");
+      table
+        .string("planet")
+        .notNullable()
+        .references("code")
+        .inTable("planets");
     }),
   ]);
 

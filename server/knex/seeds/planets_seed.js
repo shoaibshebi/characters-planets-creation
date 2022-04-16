@@ -1,10 +1,9 @@
 const { planets } = require("../../data/dummy");
-
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.seed = async function (knex) {
+exports.seed = function (knex) {
   return knex("planets")
     .del()
     .then(function () {

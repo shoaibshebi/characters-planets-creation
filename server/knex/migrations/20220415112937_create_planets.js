@@ -8,7 +8,7 @@ exports.up = (knex) =>
       table.increments("p_id").notNullable().primary();
       table.string("name").notNullable();
       table.string("description").notNullable();
-      table.string("code").notNullable();
+      table.string("code").notNullable().unique();
       table.string("picture_url");
     }),
   ]);
