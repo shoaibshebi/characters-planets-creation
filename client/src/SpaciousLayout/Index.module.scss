@@ -1,0 +1,23 @@
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+}
+.innerContainer {
+  position: relative;
+  width: 70%;
+  height: 100%;
+}
+.title {
+  font-family: "Poppins" !important;
+  font-size: 48px !important;
+  font-weight: 900 !important;
+  line-height: 72px !important;
+}
+.pageTitles {
+  width: 50%;
+}

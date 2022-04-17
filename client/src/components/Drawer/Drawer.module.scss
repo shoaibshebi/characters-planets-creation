@@ -1,0 +1,32 @@
+.container {
+  padding: 32px;
+  position: absolute;
+  height: calc(90vh - 65px);
+  position: absolute;
+  width: 408px;
+  top: 40px;
+  background: #ffffff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 32px;
+  right: 0;
+}
+.characters {
+  height: 300px;
+  overflow: auto;
+  padding: 5px;
+}
+.title {
+  font-family: "Poppins" !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  line-height: 48px !important;
+}
+.desc {
+  font-family: "Poppins" !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: #121c33;
+}
+.statsHead {
+  color: #121c33;
+}
