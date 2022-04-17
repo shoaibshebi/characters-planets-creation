@@ -7,25 +7,26 @@ import CharacterTile from "../CharacterTile/CharacterTile";
 export default function Drawer() {
   return (
     <Box className={classes.container}>
-      <Typography variant="h2" className={classes.title} marginY={2}>
+      <Typography variant="h6" className={classes.title} marginY={2}>
         Spacious
       </Typography>
-      <Typography variant="p" className={classes.title} marginY={2}>
-        Spacious
+      <Typography variant="p" className={classes.desc} marginY={2}>
+        Planet Alpha is the place to be if you like everything related to
+        planets. I know it’s a bit meta, but come see by yourself.
       </Typography>
       <Box marginY={2}>
-        <Typography variant="p" className={classes.title}>
+        <Typography variant="h6" className={classes.statsHead}>
           Population
         </Typography>
-        <Typography variant="p" className={classes.title}>
+        <Typography variant="p" className={classes.stats} fontWeight="bold">
           234
         </Typography>
       </Box>
       <Grid container justifyContent="space-between">
-        <Typography variant="p" className={classes.title} marginY={2}>
+        <Typography variant="h6" className={classes.charsText} marginY={2}>
           Characters
         </Typography>
-        <Typography variant="p" className={classes.title} marginY={2}>
+        <Typography variant="p" className={classes.addButton} marginY={2}>
           Add
         </Typography>
       </Grid>
@@ -33,7 +34,7 @@ export default function Drawer() {
         {Array(8)
           .fill()
           .map((_, i) => (
-            <CharacterTile />
+            <CharacterTile key={i} />
           ))}
       </Box>
     </Box>

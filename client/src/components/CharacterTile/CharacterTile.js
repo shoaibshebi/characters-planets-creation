@@ -12,8 +12,11 @@ export default function CharacterTile({ title, img }) {
             <img alt=" " src={img} className={classes.icon} />
           </Grid>
           <Grid item md={8} pl={0.5}>
+            <Typography variant="h6" marginY={2} className={classes.title}>
+              Daren semyies
+            </Typography>
             <Typography variant="p" marginY={2}>
-              {title}
+              23
             </Typography>
           </Grid>
         </Grid>

@@ -1,5 +1,5 @@
 .container {
-  padding: 10px;
+  padding: 32px;
   position: absolute;
   height: calc(90vh - 65px);
   position: absolute;
@@ -14,4 +14,19 @@
   height: 300px;
   overflow: auto;
   padding: 5px;
+}
+.title {
+  font-family: "Poppins" !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  line-height: 48px !important;
+}
+.desc {
+  font-family: "Poppins" !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: #121c33;
+}
+.statsHead {
+  color: #121c33;
 }

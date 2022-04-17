@@ -12,17 +12,16 @@
   height: 100%;
 }
 .title {
-  font-weight: 800;
+  font-family: "Poppins" !important;
+  font-size: 48px !important;
+  font-weight: 900 !important;
+  line-height: 72px !important;
 }
 .pageTitles {
   width: 50%;
 }
-.pagesTitle {
-  color: #121c33;
-  padding: 8px 24px;
-  cursor: pointer;
-}
-.clicked {
-  background-color: rgba(18, 28, 51, 0.05);
-  border-radius: 8px;
+.tilesContainer {
+  height: 70vh;
+  width: 100%;
+  overflow: scroll;
 }

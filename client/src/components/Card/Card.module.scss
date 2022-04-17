@@ -1,7 +1,23 @@
 .container {
   height: 200px;
-  width: 270px;
-  background: red;
+  width: 272px;
+  //   background: red;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
+}
+.imgContainer {
+  height: 136px;
+  width: 100%;
+  background: rgb(208, 208, 241);
+  border-radius: 16px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.textContainer {
+  width: 100%;
+  padding: 2%;
+}
+.title {
+}
+.stats {
 }

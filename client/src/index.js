@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-// import apolloClient from "./apolloClient";
-import App from "./App";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+
+import App from "./App";
 import "./index.css";
 
 const defaultOptions = {
@@ -23,10 +22,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
