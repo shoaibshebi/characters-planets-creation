@@ -19,7 +19,7 @@ export default function SecondaryButton({
       backgroundColor={bgColor}
       color={clor}
       borderRadius="8px"
-      cursor="pointer"
+      className={classes.secondaryButton}
       onClick={clickHandler}
     >
       {text}

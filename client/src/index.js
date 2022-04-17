@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import "./index.css";
@@ -16,15 +17,17 @@ const defaultOptions = {
   },
 };
 const client = new ApolloClient({
-  uri: "https://api.spacex.land/graphql/",
+  uri: "http://localhost:3000/graphql/",
   cache: new InMemoryCache(),
-  defaultOptions: defaultOptions,
+  // defaultOptions: defaultOptions,
 });
 
 ReactDOM.render(
   <React.Fragment>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ApolloProvider>
   </React.Fragment>,
   document.getElementById("root")

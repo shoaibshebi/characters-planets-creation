@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+}
+.tilesContainer {
+  height: 70vh;
+  width: 100%;
+  overflow: scroll;
+}
+.button {
+  position: absolute;
+  right: 20;
+  bottom: 20;
+}
+.iconDim {
+  height: 15px !important;
+  width: 20px !important;
+}

@@ -9,7 +9,7 @@ export default function CharacterTile({ title, img }) {
       <Box className={classes.container}>
         <Grid container>
           <Grid item md={3} pt={1}>
-            <img alt=" " src={img} className={classes.icon} />
+            <img alt="character img" src={img} className={classes.icon} />
           </Grid>
           <Grid item md={8} pl={0.5}>
             <Typography variant="h6" marginY={2} className={classes.title}>
