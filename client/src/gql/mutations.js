@@ -2,32 +2,26 @@ import { gql } from "@apollo/client";
 
 //Planets
 const CREATE_PLANET = gql`
-  mutation CreatePlanet($planet: PlanetInput!) {
-    createPlanet(planet: $planet) {
+  mutation CreatePlanet($planetInfo: PlanetInput) {
+    createPlanet(planetInfo: $planetInfo) {
       p_id
       name
       description
       code
-      pictureUrl
+      picture_url
       population
-      characters {
-        name
-      }
     }
   }
 `;
 
 //Characters
 const CREATE_CHARACTER = gql`
-  mutation CreateCharacter($character: CharacterInput!) {
-    createCharacter(planetInfo: $character) {
+  mutation CreateCharacter($characterInfo: CharacterInput!) {
+    createCharacter(characterInfo: $characterInfo) {
       c_id
       name
       description
-      pictureUrl
-      planet {
-        name
-      }
+      picture_url
     }
   }
 `;

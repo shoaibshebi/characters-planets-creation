@@ -1,4 +1,4 @@
-import { Modal, Box, Button } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import { styled } from "@mui/system";
 
 const MyModal = styled(Modal)({

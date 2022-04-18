@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, bottomNavigationClasses } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, {
+  useState,
+  useEffect,
+  Children,
+  createElement,
+  cloneElement,
+} from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import classes from "./Index.module.scss";
-import Card from "../components/Card/Card";
-import Drawer from "../components/Drawer/Drawer";
-import Modal from "../components/Modal/Modal";
 import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
-import Planets from "../pages/Planets/Index";
-import WhySoEmpty from "../components/WhySoEmpty/WhySoEmpty";
+import { capitalize } from "../utils/utils";
 
-export default function Index({ children }) {
+const Index = (props) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [pagesTitle, setPagesTitle] = useState("Planets");
+  const [charModalOpen, setCharModalOpen] = useState(false);
 
   const primaryOnClickHandler = (text) => {
     setPagesTitle(text);
     navigate(`/${text.toLowerCase()}`);
   };
+  useEffect(() => {
+    let path = capitalize(location.pathname.split("/")[1]);
+    setPagesTitle(path);
+  }, [location]);
+
   return (
     <Box className={classes.container}>
       <Box className={classes.innerContainer}>
@@ -36,8 +45,14 @@ export default function Index({ children }) {
             onClickHandler={primaryOnClickHandler}
           />
         </Grid>
-        {children}
+        {Children.map(props.children, (child) =>
+          cloneElement(child, {
+            charModalOpen: charModalOpen,
+            setCharModalOpen: setCharModalOpen,
+          })
+        )}
       </Box>
     </Box>
   );
-}
+};
+export default Index;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router-dom";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
@@ -8,57 +9,96 @@ import Drawer from "../../components/Drawer/Drawer";
 import AddModal from "./components/AddModal/AddModal";
 import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 import AddButton from "../../components/AddButton/AddButton";
-// import { useGetPlanets } from "../../gql";
+import { useCreatePlanet, useGetPlanets } from "../../gql";
+import Loader from "../../components/Loader/Loader";
 
 export default function Planets() {
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-  // const { data, loading, error } = useGetPlanets();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cardData, setCardData] = useState({});
 
-  const data = [];
-  // console.log("data ", data, loading, error);
+  const { data, loading, error } = useGetPlanets();
+  const { createPlanet, data: createdData } = useCreatePlanet();
+
+  if (loading) return <Loader />;
+  if (error)
+    return <Loader text={("Some thing bad happened.", error.message)} />;
+
+  const {
+    planets: { nodes },
+  } = data;
 
   const addHandler = () => {
+    navigate("/planets/create");
     setModalOpen(true);
   };
   const closeHandler = () => {
     setModalOpen(false);
+    navigate("/planets");
   };
   const handleCreatePlanet = (values) => {
-    console.log(values);
-    closeHandler();
+    createPlanet({
+      variables: {
+        planetInfo: {
+          name: values.name,
+          code: values.code,
+          description: values.description,
+          picture_url: values.image,
+        },
+      },
+    });
+
+    setModalOpen(false);
+    navigate("/planets");
   };
+  const cardClickHandler = (code) => {
+    let cardData = data.planets.nodes.filter((planet) => planet.code === code);
+    setCardData({ ...cardData[0] });
+    setDrawerOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
+  const characterAddHandler = () => {};
 
   return (
-    <Box>
+    <>
       <AddModal
         open={modalOpen}
         handleClose={closeHandler}
         handleCreatePlanet={handleCreatePlanet}
       />
-      {/* <Drawer /> */}
-      {data.length ? (
+      <Drawer
+        open={drawerOpen}
+        dataObj={cardData}
+        addHandler={characterAddHandler}
+        handleClose={handleDrawerClose}
+      />
+      {nodes?.length ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
-          {Array(15)
-            .fill()
-            .map((_, i) => (
-              <Grid item key={i}>
-                <Card />
-              </Grid>
-            ))}
+          {nodes?.map((x, i) => (
+            <Grid item key={i}>
+              <Card
+                title={x.name}
+                image={x.picture_url}
+                code={x.code}
+                population={x.population}
+                clickHandler={cardClickHandler}
+              />
+            </Grid>
+          ))}
         </Grid>
       ) : (
         <WhySoEmpty text="CREATE PLANET" createHandler={addHandler} />
       )}
-      <Box className={classes.button}>
-        <AddButton
-          icon={<AddIcon className={classes.iconDim} />}
-          clickHandler={addHandler}
-          br="50%"
-          bgclr="#121C33"
-          clr="#fff"
-          padd="20px"
-        />
-      </Box>
-    </Box>
+      <AddButton
+        icon={<AddIcon />}
+        clickHandler={addHandler}
+        br="50%"
+        bgclr="#121C33"
+        clr="#fff"
+      />
+    </>
   );
 }

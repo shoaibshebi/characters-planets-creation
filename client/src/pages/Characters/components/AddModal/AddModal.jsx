@@ -6,26 +6,24 @@ import CloseIcon from "@mui/icons-material/Close";
 import classes from "./AddModal.module.scss";
 import Input from "../../../../components/Inputs/Input";
 import GeneralModal from "../../../../components/Modal/Modal";
-import { CreatePlanetFormValidation } from "../../../../utils/formValidations";
+import { CreateCharacterFormValidation } from "../../../../utils/formValidations";
 import SecondaryButton from "../../../../components/SecondaryButton/SecondaryButton";
 import DismissButton from "../../../../components/DismissButton/DismissButton";
 
 const Fields = ["name", "planet", "image", "description"];
 
-export default function AddModal({ handleCreatePlanet }) {
-  const cancalHandler = () => {
-    console.log("cancel");
-  };
-  const createHandler = () => {
-    console.log("create");
-  };
-  const closeHandler = () => {
-    console.log("create");
-  };
+export default function AddModal({ open, handleClose, handleCreateCharacter }) {
   return (
-    <GeneralModal>
+    <GeneralModal open={open} handleClose={handleClose}>
       <Grid container justifyContent="right">
-        <DismissButton clickHandler={closeHandler} icon={<CloseIcon />} />
+        <DismissButton
+          pt="3px"
+          pb="0"
+          pl="3px"
+          pr="3px"
+          clickHandler={handleClose}
+          icon={<CloseIcon />}
+        />
       </Grid>
       <Typography variant="h6" className={classes.title} marginY={2}>
         Character
@@ -37,8 +35,8 @@ export default function AddModal({ handleCreatePlanet }) {
           image: "",
           description: "",
         }}
-        validationSchema={CreatePlanetFormValidation}
-        onSubmit={(values) => handleCreatePlanet(values)}
+        validationSchema={CreateCharacterFormValidation}
+        onSubmit={(values) => handleCreateCharacter(values)}
       >
         {({ errors, touched, handleSubmit }) => {
           return (
@@ -52,7 +50,7 @@ export default function AddModal({ handleCreatePlanet }) {
                   touched={touched}
                   placeholder={
                     field === "planet"
-                      ? "Planet Code e.g. PI-NOE-01, Planet the character lives on"
+                      ? "Planet Code e.g. PI-NOE-01, Planet that character lives on"
                       : field === "image"
                       ? "Note: Paste the URL of a JPG or PNG of max 20 kb"
                       : ""
@@ -65,7 +63,7 @@ export default function AddModal({ handleCreatePlanet }) {
                   text="CANCEL"
                   bgColor="rgba(18, 28, 51, 0.05)"
                   clor="#121C33"
-                  clickHandler={cancalHandler}
+                  clickHandler={handleClose}
                   px="24px"
                   py="12px"
                 />
@@ -74,7 +72,6 @@ export default function AddModal({ handleCreatePlanet }) {
                   text="CREATE CHARACTER"
                   bgColor="#121C33"
                   clor="whitesmoke"
-                  clickHandler={createHandler}
                   px="24px"
                   py="12px"
                 />

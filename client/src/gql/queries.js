@@ -14,11 +14,13 @@ const GET_PLANETS = gql`
         name
         description
         code
-        pictureUrl
+        picture_url
         population
         characters {
-          id
+          c_id
           name
+          description
+          picture_url
         }
       }
     }
@@ -31,10 +33,10 @@ const GET_PLANET = gql`
       name
       description
       code
-      pictureUrl
+      picture_url
       population
       characters {
-        id
+        c_id
         name
       }
     }
@@ -50,7 +52,12 @@ const GET_CHARACTERS = gql`
         page
         pageSize
       }
-        nodes {
+      nodes {
+        c_id
+        name
+        description
+        picture_url
+        planet {
           name
         }
       }

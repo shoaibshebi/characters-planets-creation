@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Formik, Form, Field } from "formik";
+import React from "react";
+import { Formik, Form } from "formik";
 import { Typography, Grid } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -13,19 +13,17 @@ import DismissButton from "../../../../components/DismissButton/DismissButton";
 const Fields = ["name", "code", "image", "description"];
 
 export default function AddModal({ open, handleClose, handleCreatePlanet }) {
-  const cancalHandler = () => {
-    console.log("cancel");
-  };
-  const createHandler = () => {
-    console.log("create");
-  };
-  const closeHandler = () => {
-    console.log("create");
-  };
   return (
     <GeneralModal open={open} handleClose={handleClose}>
       <Grid container justifyContent="right">
-        <DismissButton clickHandler={closeHandler} icon={<CloseIcon />} />
+        <DismissButton
+          pt="3px"
+          pb="0"
+          pl="3px"
+          pr="3px"
+          clickHandler={handleClose}
+          icon={<CloseIcon />}
+        />
       </Grid>
       <Typography variant="h6" className={classes.title} marginY={2}>
         Spacious
@@ -34,8 +32,8 @@ export default function AddModal({ open, handleClose, handleCreatePlanet }) {
         initialValues={{
           name: "",
           code: "",
-          description: "",
           image: "",
+          description: "",
         }}
         validationSchema={CreatePlanetFormValidation}
         onSubmit={(values) => handleCreatePlanet(values)}
@@ -65,7 +63,7 @@ export default function AddModal({ open, handleClose, handleCreatePlanet }) {
                   text="CANCEL"
                   bgColor="rgba(18, 28, 51, 0.05)"
                   clor="#121C33"
-                  clickHandler={cancalHandler}
+                  clickHandler={handleClose}
                   px="24px"
                   py="12px"
                 />
@@ -74,7 +72,6 @@ export default function AddModal({ open, handleClose, handleCreatePlanet }) {
                   text="CREATE PLANET"
                   bgColor="#121C33"
                   clor="whitesmoke"
-                  clickHandler={createHandler}
                   px="24px"
                   py="12px"
                 />

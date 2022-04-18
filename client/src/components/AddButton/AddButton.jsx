@@ -1,26 +1,15 @@
 import React from "react";
-import { Typography } from "@mui/material";
 
 import classes from "./AddButton.module.scss";
 
-export default function AddButton({
-  br,
-  clr,
-  icon,
-  padd,
-  bgclr,
-  clickHandler,
-}) {
+export default function AddButton({ br, clr, icon, bgclr, clickHandler }) {
   return (
-    <Typography
-      color={clr}
-      padding={padd}
-      component="p"
-      borderRadius={br}
-      bgcolor={bgclr}
+    <p
+      style={{ color: clr, borderRadius: br, backgroundColor: bgclr }}
+      className={classes.addButton}
       onClick={clickHandler}
     >
       {icon}
-    </Typography>
+    </p>
   );
 }

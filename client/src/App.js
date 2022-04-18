@@ -13,8 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Planets />} />
           <Route path="/planets" element={<Planets />} />
+          <Route path="/planets/create" element={<Planets />} />
           <Route path="/characters" element={<Characters />} />
-          <Route path="/characters" element={<Characters />} />
+          <Route path="/characters/create" element={<Characters />} />
           {/* If no route exsts */}
           <Route
             path="*"
