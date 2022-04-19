@@ -1,6 +1,7 @@
-FROM node:14.14.0-alpine
-WORKDIR /app
+FROM node:12.14.1-alpine
+WORKDIR /my-app
 COPY ./package.json ./
 RUN npm i
+RUN npm rebuild node-sass
 COPY . .
 CMD ["npm", "run", "start"]

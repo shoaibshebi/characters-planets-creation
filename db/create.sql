@@ -1,0 +1,1 @@
+CREATE DATABASE spaciousdb_new;

@@ -1,32 +1,35 @@
 version: "3"
 services:
-  postgres:
-    image: "postgres:latest"
-    environment:
-      - POSTGRES_PASSWORD=postgres_password
-  nginx:
-    depends_on:
-      - api
-      - client
-    restart: always
+  db:
     build:
       dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - "3050:80"
+      context: ./db
+    env_file: config.env
+    image: spacious-db
+    expose:
+      - 5432
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      start_period: 10s
+      timeout: 4s
+      retries: 3
   api:
     build:
       dockerfile: Dockerfile.dev
       context: "./server"
+    image: spacious-api
+    ports:
+      - 3000:5000
     volumes:
       - /app/node_modules
-      - ./server:/app
-    environment:
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
+      - ./server:/my-app
+    env_file: config.env
+    networks:
+      - backend
+      - frontend
   client:
     stdin_open: true
     environment:
@@ -34,6 +37,14 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./client
+    image: spacious-client
+    ports:
+      - 4003:4002
     volumes:
       - /app/node_modules
-      - ./client:/app
+      - ./client:/my-app
+    networks:
+      - frontend
+networks:
+  backend:
+  frontend:

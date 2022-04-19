@@ -18,7 +18,7 @@ const startServer = async () => {
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
 
-  app.listen({ port: 3000 }, () =>
+  app.listen({ port: 5000 }, () =>
     console.log(
       `🚀 Server ready at http://localhost:3000${apolloServer.graphqlPath}`
     )

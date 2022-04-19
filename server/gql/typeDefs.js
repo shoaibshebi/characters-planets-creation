@@ -14,6 +14,10 @@ const types = gql`
   type CreatePlanetResponse {
     p_id: ID!
     name: String!
+    description: String
+    code: String
+    picture_url: String
+    population: Int
   }
   type Pagination {
     total: Int
@@ -42,6 +46,8 @@ const types = gql`
   type CreateCharacterResponse {
     c_id: Int!
     name: String!
+    description: String
+    picture_url: String
   }
   type Characters {
     pagination: Pagination
