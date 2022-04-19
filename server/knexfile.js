@@ -6,7 +6,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: "postgresql://postgres:postgres@db:5432/spaciousdb_new",
+    connection: "postgresql://postgres:postgres@db:5432/spaciousdb",
     migrations: {
       directory: __dirname + "/knex/migrations",
     },

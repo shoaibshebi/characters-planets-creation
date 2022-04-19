@@ -1,1 +1,1 @@
-CREATE DATABASE spaciousdb_new;
+CREATE DATABASE spaciousdb;
