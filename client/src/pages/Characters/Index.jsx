@@ -16,10 +16,17 @@ export default function Characters(props) {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [newNodeId, setNewNodeId] = useState(null);
   const [cardData, setCardData] = useState({});
 
   const { data, loading, error } = useGetCharacters();
-  const { createCharacter, data: updatedChars } = useCreateCharacter();
+  const { createCharacter, data: createdData } = useCreateCharacter();
+
+  useEffect(() => {
+    if (createdData?.createCharacter) {
+      setNewNodeId(createdData?.createCharacter?.c_id);
+    }
+  }, [createdData]);
 
   if (loading) return <Loader />;
   if (error)
@@ -29,6 +36,7 @@ export default function Characters(props) {
     characters: { nodes },
   } = data;
 
+  console.log("created ", createdData);
   const addHandler = () => {
     navigate("/characters/create");
     setModalOpen(true);
@@ -37,22 +45,26 @@ export default function Characters(props) {
     setModalOpen(false);
     navigate("/characters");
   };
-  const handleCreateCharacter = (values) => {
-    createCharacter({
-      variables: {
-        characterInfo: {
-          name: values.name,
-          planet: values.planet,
-          picture_url: values.image,
-          description: values.description,
+  const handleCreateCharacter = async (values) => {
+    try {
+      await createCharacter({
+        variables: {
+          characterInfo: {
+            name: values.name,
+            planet: values.planet,
+            picture_url: values.image,
+            description: values.description,
+          },
         },
-      },
-    });
-    closeHandler();
+      });
+    } catch (error) {
+      console.log("error ", error);
+    }
+    // closeHandler();
     navigate("/characters");
   };
   const cardClickHandler = (id) => {
-    let cardData = data.characters.nodes.filter(
+    let cardData = data?.characters.nodes.filter(
       (character) => character.c_id === id
     );
     setCardData({ ...cardData[0] });
@@ -83,9 +95,10 @@ export default function Characters(props) {
               <Card
                 id={x.c_id}
                 title={x.name}
-                image={x.picture_url}
                 code={x.planet}
-                // population={x.population}
+                newNodeId={newNodeId === x.c_id}
+                image={x.picture_url}
+                population={"no data"}
                 description={x.description}
                 clickHandler={cardClickHandler}
               />

@@ -1,14 +1,12 @@
 import React from "react";
 import cxs from "classnames";
 import CloseIcon from "@mui/icons-material/Close";
-import AddIcon from "@mui/icons-material/Add";
 import { Box, Grid, Typography } from "@mui/material";
 
 import classes from "./Drawer.module.scss";
 import CharacterTile from "../CharacterTile/CharacterTile";
 import DismissButton from "../DismissButton/DismissButton";
 import { capitalize } from "../../utils/utils";
-import AddButton from "../AddButton/AddButton";
 
 export default function Drawer({ open, dataObj, handleClose, addHandler }) {
   return (
@@ -46,9 +44,17 @@ export default function Drawer({ open, dataObj, handleClose, addHandler }) {
           <Typography variant="h6" className={classes.charsText} marginY={2}>
             Characters
           </Typography>
+          <Typography
+            variant="h6"
+            className={classes.charsText}
+            marginY={2}
+            pr={3}
+          >
+            {dataObj?.characters?.length}
+          </Typography>
         </Grid>
       )}
-      {"characters" in dataObj ? (
+      {"characters" in dataObj && dataObj?.characters?.length ? (
         <Box className={classes.characters}>
           {dataObj?.characters?.map((x, i) => (
             <CharacterTile

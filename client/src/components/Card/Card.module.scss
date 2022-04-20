@@ -11,6 +11,7 @@
   border-radius: 16px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  position: relative;
 }
 .img {
   width: 100%;
@@ -19,6 +20,21 @@
   border-radius: 16px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.newCreated {
+  padding-left: 4%;
+  font-size: 10px;
+  color: white;
+  height: 18px;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    rgba(242, 104, 38, 1) 39%,
+    rgba(0, 212, 255, 0) 97%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  position: absolute;
+  bottom: 10%;
 }
 .textContainer {
   width: 100%;

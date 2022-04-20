@@ -9,10 +9,16 @@ const paginationData = (reqData) => {
   if (page < 1) page = 1;
 
   var offset = (page - 1) * pageSize;
+  var orderByField = reqData.table[0] + "_id";
 
   return Promise.all([
     knex.count("* as count").from(reqData.table).first(),
-    knex.select("*").from(reqData.table).offset(offset).limit(pageSize),
+    knex
+      .select("*")
+      .from(reqData.table)
+      .offset(offset)
+      .limit(pageSize)
+      .orderBy(orderByField, "desc"),
   ]).then(([total, rows]) => {
     var count = total.count;
     var rows = rows;
@@ -27,6 +33,15 @@ const paginationData = (reqData) => {
   });
 };
 
+const compressImg = (picture_url) => {
+  if (picture_url.includes("?")) {
+    let url = picture_url.split("?")[0];
+    return `${url}?auto=compress&cs=tinysrgb&dpr=1&w=500`;
+  }
+  return picture_url;
+};
+
 module.exports = {
+  compressImg,
   paginationData,
 };

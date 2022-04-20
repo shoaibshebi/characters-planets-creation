@@ -1,4 +1,4 @@
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_CHARACTER, CREATE_PLANET } from "./mutations";
 import {
   GET_PLANETS,
@@ -95,11 +95,16 @@ const useCreateCharacter = () => {
     {
       update(cache, { data: { createCharacter } }) {
         const { characters } = cache.readQuery({ query: GET_CHARACTERS });
+        console.log("created hook", createCharacter);
+        //creating copies of diff objs as they we not extensible
         let createCharacterCpy = { ...createCharacter };
-        createCharacterCpy.planet = "{}";
+        createCharacterCpy.planet = {
+          name: "",
+        };
         let charactersCpy = { ...characters };
         let nodesCpy = [createCharacterCpy, ...charactersCpy.nodes];
         charactersCpy.nodes = nodesCpy;
+
         cache.writeQuery({
           query: GET_CHARACTERS,
           data: {

@@ -17,6 +17,7 @@ async function getPlanets({ pageSize, page }) {
     );
     return {
       ...planet,
+      population: specificChars.length || 0,
       characters: specificChars,
     };
   });

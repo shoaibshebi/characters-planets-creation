@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
@@ -15,19 +15,22 @@ import Loader from "../../components/Loader/Loader";
 export default function Planets() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  const [newNodeId, setNewNodeId] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cardData, setCardData] = useState({});
 
   const { data, loading, error } = useGetPlanets();
   const { createPlanet, data: createdData } = useCreatePlanet();
 
+  useEffect(() => {
+    if (createdData?.createPlanet) {
+      setNewNodeId(createdData?.createPlanet?.p_id);
+    }
+  }, [createdData]);
+
   if (loading) return <Loader />;
   if (error)
     return <Loader text={("Some thing bad happened.", error.message)} />;
-
-  const {
-    planets: { nodes },
-  } = data;
 
   const addHandler = () => {
     navigate("/planets/create");
@@ -53,7 +56,9 @@ export default function Planets() {
     navigate("/planets");
   };
   const cardClickHandler = (code) => {
-    let cardData = data.planets.nodes.filter((planet) => planet.code === code);
+    let cardData = data?.planets?.nodes.filter(
+      (planet) => planet.code === code
+    );
     setCardData({ ...cardData[0] });
     setDrawerOpen(true);
   };
@@ -75,14 +80,15 @@ export default function Planets() {
         addHandler={characterAddHandler}
         handleClose={handleDrawerClose}
       />
-      {nodes?.length ? (
+      {data?.planets?.nodes ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
-          {nodes?.map((x, i) => (
+          {data?.planets?.nodes?.map((x, i) => (
             <Grid item key={i}>
               <Card
-                title={x.name}
-                image={x.picture_url}
                 code={x.code}
+                title={x.name}
+                newNodeId={newNodeId === x.p_id}
+                image={x.picture_url}
                 population={x.population}
                 clickHandler={cardClickHandler}
               />

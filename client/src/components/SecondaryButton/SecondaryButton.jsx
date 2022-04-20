@@ -1,34 +1,18 @@
 import React from "react";
-import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
 
 import classes from "./SecondaryButton.module.scss";
 
 export default function SecondaryButton({
-  text,
-  bgColor,
-  clor,
-  type,
-  clickHandler,
   px,
   py,
+  text,
+  clor,
+  bgColor,
+  clickHandler,
 }) {
   return (
-    // <Typography
-    //   component="span"
-    //   paddingX={px}
-    //   paddingY={py}
-    //   color={clor}
-    //   borderRadius="8px"
-    //   onClick={clickHandler}
-    //   backgroundColor={bgColor}
-    //   className={classes.secondaryButton}
-    // >
-    //   {text}
-    // </Typography>
     <button
       type="submit"
-      // color={clor}
       style={{
         backgroundColor: bgColor,
         color: clor,
@@ -39,9 +23,10 @@ export default function SecondaryButton({
         paddingRight: px,
         border: "none",
       }}
+      onClick={clickHandler}
       className={classes.secondaryButton}
     >
-      {text}{" "}
+      {text}
     </button>
   );
 }
