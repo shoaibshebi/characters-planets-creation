@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Grid, Typography } from "@mui/material";
 
 import classes from "./WhySoEmpty.module.scss";
 import planetLoaderIcon from "../../assets/images/planet-loader.svg";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
-export default function WhySoEmpty({ text, createHandler }) {
+function WhySoEmpty({ text, createHandler }) {
   return (
     <Grid container className={classes.container}>
       <img alt="planet icon" src={planetLoaderIcon} />
@@ -23,3 +24,10 @@ export default function WhySoEmpty({ text, createHandler }) {
     </Grid>
   );
 }
+
+WhySoEmpty.propTypes = {
+  text: PropTypes.string,
+  createHandler: PropTypes.func,
+};
+
+export default WhySoEmpty;

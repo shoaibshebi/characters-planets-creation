@@ -16,3 +16,7 @@ body {
 iframe {
   pointer-events: none;
 }
+* {
+  font-family: "Poppins", sans-serif !important;
+  box-sizing: border-box !important;
+}

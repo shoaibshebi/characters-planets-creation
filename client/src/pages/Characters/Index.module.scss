@@ -1,5 +1,12 @@
+.tilesContainer::-webkit-scrollbar {
+  display: none;
+}
+//  Hide scrollbar for IE, Edge and Firefox
 .tilesContainer {
+  -ms-overflow-style: none;
+  -o-overflow-style: none;
+  scrollbar-width: none;
   height: 70vh;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
 }

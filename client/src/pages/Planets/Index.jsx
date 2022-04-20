@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
@@ -12,7 +12,7 @@ import AddButton from "../../components/AddButton/AddButton";
 import { useCreatePlanet, useGetPlanets } from "../../gql";
 import Loader from "../../components/Loader/Loader";
 
-export default function Planets() {
+function Planets() {
   const navigate = useNavigate();
   const [cardData, setCardData] = useState({});
   const [newNodeId, setNewNodeId] = useState(null);
@@ -98,7 +98,7 @@ export default function Planets() {
                 title={x.name}
                 newNodeId={newNodeId === x.p_id}
                 image={x.picture_url}
-                population={x.population}
+                population={x.population + ""}
                 clickHandler={cardClickHandler}
               />
             </Grid>
@@ -117,3 +117,5 @@ export default function Planets() {
     </>
   );
 }
+
+export default Planets;

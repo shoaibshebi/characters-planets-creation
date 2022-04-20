@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Children, cloneElement } from "react";
+import PropTypes from "prop-types";
 import { Box, Typography, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, Children, cloneElement } from "react";
 
 import classes from "./Index.module.scss";
 import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
@@ -49,4 +50,9 @@ const Index = (props) => {
     </Box>
   );
 };
+
+Index.propTypes = {
+  children: PropTypes.node,
+};
+
 export default Index;

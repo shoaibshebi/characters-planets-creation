@@ -100,7 +100,7 @@ export default function Characters(props) {
               <Card
                 id={x.c_id}
                 title={x.name}
-                code={x.planet}
+                code=""
                 newNodeId={newNodeId === x.c_id}
                 image={x.picture_url}
                 population={"no data"}

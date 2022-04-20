@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
 import { Typography, Grid } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -12,12 +13,7 @@ import DismissButton from "../../../../components/DismissButton/DismissButton";
 
 const Fields = ["name", "code", "image", "description"];
 
-export default function AddModal({
-  open,
-  handleClose,
-  mutationErr,
-  handleCreatePlanet,
-}) {
+function AddModal({ open, handleClose, mutationErr, handleCreatePlanet }) {
   return (
     <GeneralModal open={open} handleClose={handleClose}>
       <Grid container justifyContent="right">
@@ -92,3 +88,12 @@ export default function AddModal({
     </GeneralModal>
   );
 }
+
+AddModal.propTypes = {
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
+  mutationErr: PropTypes.string,
+  handleCreatePlanet: PropTypes.func,
+};
+
+export default AddModal;

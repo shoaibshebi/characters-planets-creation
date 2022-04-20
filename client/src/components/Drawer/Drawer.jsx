@@ -1,5 +1,6 @@
 import React from "react";
 import cxs from "classnames";
+import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Grid, Typography } from "@mui/material";
 
@@ -8,7 +9,7 @@ import CharacterTile from "../CharacterTile/CharacterTile";
 import DismissButton from "../DismissButton/DismissButton";
 import { tooltipTrim } from "../../utils/utils";
 
-export default function Drawer({ open, dataObj, handleClose, addHandler }) {
+function Drawer({ open, dataObj, handleClose }) {
   return (
     <Box
       className={cxs(classes.container, open ? classes.open : classes.closed)}
@@ -77,3 +78,11 @@ export default function Drawer({ open, dataObj, handleClose, addHandler }) {
     </Box>
   );
 }
+
+Drawer.propTypes = {
+  open: PropTypes.bool,
+  dataObj: PropTypes.object,
+  handleClose: PropTypes.func,
+};
+
+export default Drawer;

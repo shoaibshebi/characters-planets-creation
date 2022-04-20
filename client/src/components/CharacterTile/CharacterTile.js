@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box, Grid, Typography } from "@mui/material";
 
 import { tooltipTrim } from "../../utils/utils";
 import classes from "./CharacterTile.module.scss";
 
-export default function CharacterTile({ title, description, img }) {
+function CharacterTile({ title, description, img }) {
   return (
     <>
       <Box className={classes.container}>
@@ -25,3 +26,11 @@ export default function CharacterTile({ title, description, img }) {
     </>
   );
 }
+
+CharacterTile.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  img: PropTypes.string,
+};
+
+export default CharacterTile;

@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./AddButton.module.scss";
 
-export default function AddButton({ br, clr, icon, bgclr, clickHandler }) {
+function AddButton({ br, clr, icon, bgclr, clickHandler }) {
   return (
     <p
       style={{ color: clr, borderRadius: br, backgroundColor: bgclr }}
@@ -13,3 +14,13 @@ export default function AddButton({ br, clr, icon, bgclr, clickHandler }) {
     </p>
   );
 }
+
+AddButton.propTypes = {
+  br: PropTypes.string,
+  icon: PropTypes.node,
+  clr: PropTypes.string,
+  bgclr: PropTypes.string,
+  clickHandler: PropTypes.func,
+};
+
+export default AddButton;

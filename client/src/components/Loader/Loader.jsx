@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Grid, Typography, Box } from "@mui/material";
 
 import classes from "./Loader.module.scss";
 import planetLoaderIcon from "../../assets/images/planet-loader.svg";
 
-export default function Loader({ text }) {
+function Loader({ text }) {
   return (
     <Grid container className={classes.container}>
       <Box className={classes.card}>
@@ -16,3 +17,9 @@ export default function Loader({ text }) {
     </Grid>
   );
 }
+
+Loader.propTypes = {
+  text: PropTypes.string,
+};
+
+export default Loader;

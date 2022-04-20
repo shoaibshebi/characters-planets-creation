@@ -11,7 +11,8 @@
 }
 .open {
   width: 408px !important;
-  right: -1% !important;
+  right: 1% !important;
+  word-break: break-all;
 }
 .closed {
   width: 0px !important;
