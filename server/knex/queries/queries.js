@@ -55,7 +55,7 @@ async function getPlanet({ code }) {
 }
 
 //Characters
-async function getCharacters({ pageSize = 10, page = 1 }) {
+async function getCharacters({ pageSize, page }) {
   const { pagination, data } = await paginationData({
     pageSize,
     page,

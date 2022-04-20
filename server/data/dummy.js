@@ -5,7 +5,7 @@ const planets = [
       "Tatooine is a sparsely inhabited circumbinary desert planet located in the galaxy's Outer Rim Territories.",
     code: "XT-FOE-43",
     picture_url:
-      "https://images.pexels.com/photos/2220337/pexels-photo-2220337.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "https://upload.wikimedia.org/wikipedia/en/6/6d/Tatooine_%28fictional_desert_planet%29.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
   },
   {
     name: "Aargau",
@@ -32,7 +32,7 @@ const characters = [
       "Chewbacca, known affectionately to his friends as Chewie, is a Wookiee male warrior, smuggler, mechanic, pilot, and resistance fighter.",
     planet: "FN-BBA-22",
     picture_url:
-      "https://upload.wikimedia.org/wikipedia/en/6/6d/Chewbacca-2-.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "https://images.pexels.com/photos/2220337/pexels-photo-2220337.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
   },
   {
     name: "Norbert Ériu",

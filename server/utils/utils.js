@@ -9,7 +9,7 @@ const paginationData = (reqData) => {
   if (page < 1) page = 1;
 
   var offset = (page - 1) * pageSize;
-  var orderByField = reqData.table[0] + "_id";
+  var id = reqData.table[0] + "_id";
 
   return Promise.all([
     knex.count("* as count").from(reqData.table).first(),
@@ -18,7 +18,7 @@ const paginationData = (reqData) => {
       .from(reqData.table)
       .offset(offset)
       .limit(pageSize)
-      .orderBy(orderByField, "desc"),
+      .orderBy(id, "desc"),
   ]).then(([total, rows]) => {
     var count = total.count;
     var rows = rows;

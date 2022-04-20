@@ -6,23 +6,23 @@ const resolvers = {
   // Prototypes for GET
   Query: {
     //Planets
-    planets: async (_, { page = 1, pageSize = 10 }, ctx) => {
+    planets: async (_, { page, pageSize }, ctx) => {
       await verifyToken(ctx.authToken);
-      return await queries.getPlanets(pageSize, page);
+      return await queries.getPlanets({ pageSize, page });
     },
     planet: async (_, code, ctx) => {
       await verifyToken(ctx.authToken);
-      return await queries.getPlanet(code);
+      return await queries.getPlanet({ code });
     },
 
     //Characters
-    characters: async (_, { page = 1, pageSize = 10 }, ctx) => {
+    characters: async (_, { page, pageSize }, ctx) => {
       await verifyToken(ctx.authToken);
-      return await queries.getCharacters(pageSize, page);
+      return await queries.getCharacters({ pageSize, page });
     },
     character: async (_, id, ctx) => {
       await verifyToken(ctx.authToken);
-      return await queries.getCharacter(id);
+      return await queries.getCharacter({ id });
     },
   },
   Mutation: {
