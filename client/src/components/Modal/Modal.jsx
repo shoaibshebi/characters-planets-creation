@@ -1,5 +1,7 @@
-import { Modal, Box } from "@mui/material";
 import { styled } from "@mui/system";
+import { Modal, Box, Grid } from "@mui/material";
+
+import classes from "./Modal.module.scss";
 
 const MyModal = styled(Modal)({
   "& .MuiBox-root": {
@@ -31,7 +33,14 @@ const GeneralModal = ({ open, handleClose, children }) => {
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
-      <Box sx={{ ...style }}>{children}</Box>
+      {/* <Grid container>
+        <Grid item xs={12} md={6} style={style}>
+          {children}
+        </Grid>
+      </Grid> */}
+      <Box sx={{ ...style }} className={classes.container}>
+        {children}
+      </Box>
     </MyModal>
   );
 };

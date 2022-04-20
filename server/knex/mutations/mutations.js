@@ -43,9 +43,10 @@ async function createCharacter({ name, description, planet, picture_url }) {
     res = res[0];
   } catch (error) {
     console.log("error", error);
-    return {
-      name: error.detail,
-    };
+    return error;
+    // return {
+    //   name: error.detail,
+    // };
   }
   return res;
 }

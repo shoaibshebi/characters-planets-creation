@@ -12,7 +12,12 @@ import DismissButton from "../../../../components/DismissButton/DismissButton";
 
 const Fields = ["name", "code", "image", "description"];
 
-export default function AddModal({ open, handleClose, handleCreatePlanet }) {
+export default function AddModal({
+  open,
+  handleClose,
+  mutationErr,
+  handleCreatePlanet,
+}) {
   return (
     <GeneralModal open={open} handleClose={handleClose}>
       <Grid container justifyContent="right">
@@ -57,7 +62,11 @@ export default function AddModal({ open, handleClose, handleCreatePlanet }) {
                   }
                 />
               ))}
-
+              {mutationErr && (
+                <Typography variant="h6" className={classes.title} marginY={2}>
+                  {mutationErr}
+                </Typography>
+              )}
               <Grid container justifyContent="right" pt={5}>
                 <SecondaryButton
                   text="CANCEL"

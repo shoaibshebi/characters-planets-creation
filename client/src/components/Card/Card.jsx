@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 import classes from "./Card.module.scss";
-import { capitalize } from "../../utils/utils";
+import { tooltipTrim } from "../../utils/utils";
 
 export default function Card({
   id,
@@ -31,7 +31,7 @@ export default function Card({
       </Box>
       <Box className={classes.textContainer}>
         <Typography variant="h6" className={classes.title} margin={0}>
-          {capitalize(title)}
+          {tooltipTrim(title, 15)}
         </Typography>
         {population !== "no data" && (
           <Typography variant="h6" className={classes.stats}>

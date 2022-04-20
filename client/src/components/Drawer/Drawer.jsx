@@ -6,7 +6,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import classes from "./Drawer.module.scss";
 import CharacterTile from "../CharacterTile/CharacterTile";
 import DismissButton from "../DismissButton/DismissButton";
-import { capitalize } from "../../utils/utils";
+import { tooltipTrim } from "../../utils/utils";
 
 export default function Drawer({ open, dataObj, handleClose, addHandler }) {
   return (
@@ -24,7 +24,7 @@ export default function Drawer({ open, dataObj, handleClose, addHandler }) {
         />
       </Grid>
       <Typography variant="h6" className={classes.title} marginY={2}>
-        {capitalize(dataObj?.name)}
+        {tooltipTrim(dataObj?.name, 15)}
       </Typography>
       <Typography variant="p" className={classes.desc} marginY={2}>
         {dataObj.description}

@@ -14,10 +14,11 @@ import { useCreateCharacter, useGetCharacters } from "../../gql";
 
 export default function Characters(props) {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [newNodeId, setNewNodeId] = useState(null);
   const [cardData, setCardData] = useState({});
+  const [newNodeId, setNewNodeId] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mutationErr, setMutationErr] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const { data, loading, error } = useGetCharacters();
   const { createCharacter, data: createdData } = useCreateCharacter();
@@ -36,13 +37,13 @@ export default function Characters(props) {
     characters: { nodes },
   } = data;
 
-  console.log("created ", createdData);
   const addHandler = () => {
     navigate("/characters/create");
     setModalOpen(true);
   };
   const closeHandler = () => {
     setModalOpen(false);
+    setMutationErr("");
     navigate("/characters");
   };
   const handleCreateCharacter = async (values) => {
@@ -57,11 +58,14 @@ export default function Characters(props) {
           },
         },
       });
+      closeHandler();
+      navigate("/characters");
     } catch (error) {
-      console.log("error ", error);
+      console.log("error here", error);
+      setMutationErr(
+        "Bummer! We can’t create this character right now. Probably planet not found. Try later please."
+      );
     }
-    // closeHandler();
-    navigate("/characters");
   };
   const cardClickHandler = (id) => {
     let cardData = data?.characters.nodes.filter(
@@ -80,6 +84,7 @@ export default function Characters(props) {
       <AddModal
         open={modalOpen}
         handleClose={closeHandler}
+        mutationErr={mutationErr}
         handleCreateCharacter={handleCreateCharacter}
       />
       <Drawer

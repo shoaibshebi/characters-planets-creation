@@ -14,10 +14,11 @@ import Loader from "../../components/Loader/Loader";
 
 export default function Planets() {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [newNodeId, setNewNodeId] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [cardData, setCardData] = useState({});
+  const [newNodeId, setNewNodeId] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mutationErr, setMutationErr] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const { data, loading, error } = useGetPlanets();
   const { createPlanet, data: createdData } = useCreatePlanet();
@@ -33,27 +34,34 @@ export default function Planets() {
     return <Loader text={("Some thing bad happened.", error.message)} />;
 
   const addHandler = () => {
-    navigate("/planets/create");
     setModalOpen(true);
+    navigate("/planets/create");
+    setMutationErr("");
   };
   const closeHandler = () => {
     setModalOpen(false);
     navigate("/planets");
   };
   const handleCreatePlanet = (values) => {
-    createPlanet({
-      variables: {
-        planetInfo: {
-          name: values.name,
-          code: values.code,
-          description: values.description,
-          picture_url: values.image,
+    try {
+      createPlanet({
+        variables: {
+          planetInfo: {
+            name: values.name,
+            code: values.code,
+            description: values.description,
+            picture_url: values.image,
+          },
         },
-      },
-    });
-
-    setModalOpen(false);
-    navigate("/planets");
+      });
+      setModalOpen(false);
+      navigate("/planets");
+    } catch (error) {
+      console.log("error here", error);
+      setMutationErr(
+        "Bummer! We can’t create this planet right now. Probably a black hle in the way. Try later please."
+      );
+    }
   };
   const cardClickHandler = (code) => {
     let cardData = data?.planets?.nodes.filter(
@@ -72,6 +80,7 @@ export default function Planets() {
       <AddModal
         open={modalOpen}
         handleClose={closeHandler}
+        mutationErr={mutationErr}
         handleCreatePlanet={handleCreatePlanet}
       />
       <Drawer
