@@ -18,7 +18,12 @@ function App() {
         {/* If no route exsts */}
         <Route
           path="*"
-          element={<NotFound text="It seems like you are lost in the space." />}
+          element={
+            <NotFound
+              text="It seems like you are lost in the space."
+              code="404"
+            />
+          }
         />
       </Routes>
     </SpaciousLayout>

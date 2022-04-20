@@ -4,25 +4,39 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect, createContext } from "react";
 
 import classes from "./Index.module.scss";
-import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
 import { capitalize } from "../utils/utils";
+import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
+import DropDownField from "../components/Inputs/DropDownField";
+import { useGetPlanets } from "../gql";
+import Loader from "../components/Loader/Loader";
 
 export const LayoutContext = createContext({});
 
 const Index = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { loading, data, error } = useGetPlanets();
   const [pagesTitle, setPagesTitle] = useState("Planets");
+  const [selectedPlanet, setSelectedPlanet] = useState("All");
   const [charModalOpen, setCharModalOpen] = useState(false);
+
+  useEffect(() => {
+    let path = capitalize(location.pathname.split("/")[1]);
+    setPagesTitle(path);
+  }, [location]);
+
+  if (loading) return <Loader />;
+  if (error)
+    return <Loader text={("Some thing bad happened.", error.message)} />;
 
   const primaryOnClickHandler = (text) => {
     setPagesTitle(text);
     navigate(`/${text.toLowerCase()}`);
   };
-  useEffect(() => {
-    let path = capitalize(location.pathname.split("/")[1]);
-    setPagesTitle(path);
-  }, [location]);
+  const selectHandler = (e) => {
+    console.log(e.target.value);
+    setSelectedPlanet(e.target.value);
+  };
 
   return (
     <Box className={classes.container}>
@@ -31,21 +45,35 @@ const Index = ({ children }) => {
           Spacious
         </Typography>
         <Grid container className={classes.pageTitles} marginY={5}>
-          <PrimaryButton
-            text="Planets"
-            clicked={pagesTitle === "Planets" ? true : false}
-            onClickHandler={primaryOnClickHandler}
-          />
-          <PrimaryButton
-            text="Characters"
-            clicked={pagesTitle === "Characters" ? true : false}
-            onClickHandler={primaryOnClickHandler}
-          />
+          <Grid item>
+            <PrimaryButton
+              text="Planets"
+              onClickHandler={primaryOnClickHandler}
+              clicked={pagesTitle === "Planets" ? true : false}
+            />
+            <PrimaryButton
+              text="Characters"
+              clicked={pagesTitle === "Characters" ? true : false}
+              onClickHandler={primaryOnClickHandler}
+            />
+          </Grid>
+          {location.pathname === "/characters" && (
+            <Grid item>
+              <DropDownField
+                label="Select planet"
+                name="characters"
+                selectHandler={selectHandler}
+                options={[{ name: "All" }, ...data.planets.nodes]}
+              />
+            </Grid>
+          )}
         </Grid>
+
         <LayoutContext.Provider
           value={{
             charModalOpen,
             setCharModalOpen,
+            selectedPlanet,
           }}
         >
           {children}

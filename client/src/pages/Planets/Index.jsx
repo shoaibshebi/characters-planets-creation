@@ -69,7 +69,7 @@ function Planets() {
     } catch (error) {
       console.log("error here", error);
       setMutationErr(
-        "Bummer! We can’t create this planet right now. Probably a black hle in the way. Try later please."
+        "Bummer! We can’t create this planet right now. Probably a black hole in the way. Try later please."
       );
     }
   };
@@ -84,7 +84,6 @@ function Planets() {
     setDrawerOpen(false);
   };
   const characterAddHandler = () => {
-    console.log("in create handler");
     values.setCharModalOpen(true); //setting layout/parent props
     navigate("/characters");
   };
@@ -110,7 +109,7 @@ function Planets() {
       {data?.planets?.nodes ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
           {data?.planets?.nodes?.map((x, i) => (
-            <Grid item key={i}>
+            <Grid item key={x.p_id}>
               <Card
                 code={x.code}
                 title={x.name}

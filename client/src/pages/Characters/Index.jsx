@@ -6,8 +6,8 @@ import React, { useState, useEffect, Suspense, useContext } from "react";
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
+import NotFound from "../../components/NotFound/NotFound";
 import { LayoutContext } from "../../SpaciousLayout/Index";
-import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 import AddButton from "../../components/AddButton/AddButton";
 import { useCreateCharacter, useGetCharacters } from "../../gql";
 
@@ -23,9 +23,14 @@ export default function Characters() {
   const [modalOpen, setModalOpen] = useState(false);
   const [mutationErr, setMutationErr] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [chars, setChars] = useState([]);
 
   const { data, loading, error } = useGetCharacters();
   const { createCharacter, data: createdData } = useCreateCharacter();
+
+  const {
+    characters: { nodes },
+  } = data;
 
   useEffect(() => {
     if (createdData?.createCharacter) {
@@ -43,14 +48,20 @@ export default function Characters() {
       setModalOpen(true);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (nodes && values.selectedPlanet !== "All") {
+      let charsFiltered = nodes.filter((x) => {
+        return x.planet.name === values.selectedPlanet;
+      });
+      setChars(charsFiltered);
+    } else {
+      setChars(nodes);
+    }
+  }, [values, nodes]);
 
   if (loading) return <Loader />;
   if (error)
     return <Loader text={("Some thing bad happened.", error.message)} />;
-
-  const {
-    characters: { nodes },
-  } = data;
 
   const addHandler = () => {
     navigate("/characters/create");
@@ -93,7 +104,6 @@ export default function Characters() {
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
-  const characterAddHandler = () => {};
 
   return (
     <>
@@ -109,13 +119,13 @@ export default function Characters() {
         <Drawer
           open={drawerOpen}
           dataObj={cardData}
-          addHandler={characterAddHandler}
+          addHandler={() => {}}
           handleClose={handleDrawerClose}
         />
       </Suspense>
-      {nodes.length ? (
+      {chars.length ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
-          {nodes?.map((x, i) => (
+          {chars?.map((x, i) => (
             <Grid item key={i}>
               <Card
                 id={x.c_id}
@@ -131,7 +141,7 @@ export default function Characters() {
           ))}
         </Grid>
       ) : (
-        <WhySoEmpty text="CREATE CHARACTER" createHandler={addHandler} />
+        <NotFound text={"No CAHRACTERS FOUND"} code="" />
       )}
       <AddButton
         icon={<AddIcon />}
