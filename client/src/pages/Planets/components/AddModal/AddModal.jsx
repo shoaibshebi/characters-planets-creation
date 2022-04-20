@@ -56,6 +56,7 @@ function AddModal({ open, handleClose, mutationErr, handleCreatePlanet }) {
                       ? "Note: Paste the URL of a JPG or PNG of max 20 kb"
                       : ""
                   }
+                  fieldtype={field === "description" ? "textarea" : "input"}
                 />
               ))}
               {mutationErr && (

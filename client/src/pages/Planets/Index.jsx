@@ -1,19 +1,21 @@
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, Suspense } from "react";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
-import Drawer from "../../components/Drawer/Drawer";
-import AddModal from "./components/AddModal/AddModal";
 import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 import AddButton from "../../components/AddButton/AddButton";
 import { useCreatePlanet, useGetPlanets } from "../../gql";
 import Loader from "../../components/Loader/Loader";
 
+const AddModal = React.lazy(() => import("./components/AddModal/AddModal"));
+const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
+
 function Planets() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [cardData, setCardData] = useState({});
   const [newNodeId, setNewNodeId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +30,11 @@ function Planets() {
       setNewNodeId(createdData?.createPlanet?.p_id);
     }
   }, [createdData]);
+  useEffect(() => {
+    if (location.pathname === "/planets/create") {
+      setModalOpen(true);
+    }
+  }, [location]);
 
   if (loading) return <Loader />;
   if (error)
@@ -77,18 +84,22 @@ function Planets() {
 
   return (
     <>
-      <AddModal
-        open={modalOpen}
-        handleClose={closeHandler}
-        mutationErr={mutationErr}
-        handleCreatePlanet={handleCreatePlanet}
-      />
-      <Drawer
-        open={drawerOpen}
-        dataObj={cardData}
-        addHandler={characterAddHandler}
-        handleClose={handleDrawerClose}
-      />
+      <Suspense fallback={<Loader />}>
+        <AddModal
+          open={modalOpen}
+          handleClose={closeHandler}
+          mutationErr={mutationErr}
+          handleCreatePlanet={handleCreatePlanet}
+        />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Drawer
+          open={drawerOpen}
+          dataObj={cardData}
+          addHandler={characterAddHandler}
+          handleClose={handleDrawerClose}
+        />
+      </Suspense>
       {data?.planets?.nodes ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
           {data?.planets?.nodes?.map((x, i) => (

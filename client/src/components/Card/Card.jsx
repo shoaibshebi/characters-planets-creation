@@ -42,7 +42,7 @@ Card.propTypes = {
   code: PropTypes.string,
   image: PropTypes.string,
   newNodeId: PropTypes.bool,
-  population: PropTypes.number,
+  population: PropTypes.string,
   clickHandler: PropTypes.func,
 };
 

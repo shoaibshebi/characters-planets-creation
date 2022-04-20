@@ -49,6 +49,7 @@ function AddModal({ open, handleClose, mutationErr, handleCreateCharacter }) {
                   type="text"
                   errors={errors}
                   touched={touched}
+                  fieldtype="textarea"
                   placeholder={
                     field === "planet"
                       ? "Planet Code e.g. PI-NOE-01, Planet that character lives on"
@@ -56,8 +57,10 @@ function AddModal({ open, handleClose, mutationErr, handleCreateCharacter }) {
                       ? "Note: Paste the URL of a JPG or PNG of max 20 kb"
                       : ""
                   }
+                  fieldtype={field === "description" ? "textarea" : "input"}
                 />
               ))}
+
               {
                 <Typography
                   variant="h6"

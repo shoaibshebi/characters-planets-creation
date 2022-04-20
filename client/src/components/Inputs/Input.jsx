@@ -6,7 +6,19 @@ import { Typography } from "@mui/material";
 import classes from "./Index.module.scss";
 import { capitalize } from "../../utils/utils";
 
-function Input({ name, type, errors, touched, placeholder }) {
+const CustomAreaComponent = (props) => (
+  <textarea
+    type="text"
+    {...props}
+    cols="20"
+    rows="5"
+    wrap="hard"
+    maxlength="300"
+  />
+);
+
+const CustomInputComponent = (props) => <input type="text" {...props} />;
+function Input({ name, type, errors, fieldtype, touched, placeholder }) {
   return (
     <>
       <Typography variant="h6" className={classes.label} marginY={2}>
@@ -16,6 +28,9 @@ function Input({ name, type, errors, touched, placeholder }) {
         type={type}
         name={name}
         placeholder={placeholder}
+        as={
+          fieldtype === "textarea" ? CustomAreaComponent : CustomInputComponent
+        }
         className={classes.input}
       />
       {errors[name] && touched[name] ? (
@@ -31,6 +46,7 @@ Input.propTypes = {
   errors: PropTypes.object,
   touched: PropTypes.object,
   placeholder: PropTypes.string,
+  fieldtype: PropTypes.string,
 };
 
 export default Input;

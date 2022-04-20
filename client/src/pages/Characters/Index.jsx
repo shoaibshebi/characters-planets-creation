@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, Suspense } from "react";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
-import Drawer from "../../components/Drawer/Drawer";
 import Loader from "../../components/Loader/Loader";
-import AddModal from "./components/AddModal/AddModal";
 import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 import AddButton from "../../components/AddButton/AddButton";
 import { useCreateCharacter, useGetCharacters } from "../../gql";
 
-export default function Characters(props) {
+const AddModal = React.lazy(() => import("./components/AddModal/AddModal"));
+const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
+
+export default function Characters() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [cardData, setCardData] = useState({});
   const [newNodeId, setNewNodeId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +30,11 @@ export default function Characters(props) {
       setNewNodeId(createdData?.createCharacter?.c_id);
     }
   }, [createdData]);
+  useEffect(() => {
+    if (location.pathname === "/characters/create") {
+      setModalOpen(true);
+    }
+  }, [location]);
 
   if (loading) return <Loader />;
   if (error)
@@ -81,18 +88,22 @@ export default function Characters(props) {
 
   return (
     <>
-      <AddModal
-        open={modalOpen}
-        handleClose={closeHandler}
-        mutationErr={mutationErr}
-        handleCreateCharacter={handleCreateCharacter}
-      />
-      <Drawer
-        open={drawerOpen}
-        dataObj={cardData}
-        addHandler={characterAddHandler}
-        handleClose={handleDrawerClose}
-      />
+      <Suspense fallback={<Loader />}>
+        <AddModal
+          open={modalOpen}
+          handleClose={closeHandler}
+          mutationErr={mutationErr}
+          handleCreateCharacter={handleCreateCharacter}
+        />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Drawer
+          open={drawerOpen}
+          dataObj={cardData}
+          addHandler={characterAddHandler}
+          handleClose={handleDrawerClose}
+        />
+      </Suspense>
       {nodes.length ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
           {nodes?.map((x, i) => (
