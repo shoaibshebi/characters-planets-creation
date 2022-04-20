@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiGrid-root MuiGrid-container container css-11lq3yg-MuiGrid-root"
+  >
+    <h1
+      class="MuiTypography-root MuiTypography-h1 code css-o2w69a-MuiTypography-root"
+    />
+    <img
+      alt="planet icon"
+      src="planet-loader.svg"
+    />
+    <h6
+      class="MuiTypography-root MuiTypography-h6 title css-2ulfj5-MuiTypography-root"
+    >
+      It seems like you are lost in the space.
+    </h6>
+  </div>
+</DocumentFragment>
+`;

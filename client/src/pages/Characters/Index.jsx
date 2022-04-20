@@ -28,9 +28,11 @@ export default function Characters() {
   const { data, loading, error } = useGetCharacters();
   const { createCharacter, data: createdData } = useCreateCharacter();
 
-  const {
-    characters: { nodes },
-  } = data;
+  // const {
+  //   characters: { nodes },
+  // } = data;
+
+  const nodes = data?.characters?.nodes;
 
   useEffect(() => {
     if (createdData?.createCharacter) {
@@ -95,9 +97,7 @@ export default function Characters() {
     }
   };
   const cardClickHandler = (id) => {
-    let cardData = data?.characters.nodes.filter(
-      (character) => character.c_id === id
-    );
+    let cardData = nodes?.filter((character) => character.c_id === id);
     setCardData({ ...cardData[0] });
     setDrawerOpen(true);
   };
@@ -123,7 +123,7 @@ export default function Characters() {
           handleClose={handleDrawerClose}
         />
       </Suspense>
-      {chars.length ? (
+      {chars?.length ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
           {chars?.map((x, i) => (
             <Grid item key={i}>
