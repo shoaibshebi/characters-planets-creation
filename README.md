@@ -59,10 +59,14 @@ Enthusiastic to help your new group of friends, you accept and here you go.
 
 - web application in which you can create the planets
 - you can create the character/characters that lives on the specific planet
+- responsive design for all devices all most
+- cross browser compatability for the UI
+- apollo-client at client side for state managment updating cache realtime
 - SQL database support using Postgreqs, manipulating with knex
 - user authorization with a hardcoded authorizaiton token
-- use of Docker, Docker Compose
-- responsive HTML and CSS _without_ media queries
+- use of Docker, Docker Compose to run the code on any machine
+- use of Knex for Postgres db manipulation & graphql for handling data requests from client side
+
 
 ### Built With
 
@@ -100,9 +104,15 @@ You'll need Docker and Docker Compose installed on your system.
 
 2. Build Docker containers locally:
 
+  ```bash
+  docker-compose up -d --build OR docker-compose up --build
+  ```
+
+3. Install knex globaly:
+
 ```bash
-docker-compose up -d --build OR docker-compose up --build
-```
+  docker-compose exec api npm i -g knex
+  ```
 
 3. Run migrations & seed:
 
@@ -121,15 +131,26 @@ docker-compose up -d OR docker-compose up
 
 Go to `http://localhost:4003/` to see the Frontend app.
 Go to `http://localhost:3000/graphql` to see the gql playground.
+🔴 Alert: Use this Authorization token if wanna test Api -> "Bearer eyJlbWFpbCI6InNob2FpYjQwMzA4OTFAZ21haWwuY29tIiwiaWQiOiI2MWQyYWI1ZjA0NjU4NTNmOTEzNGUyZWQiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1MDAxNjA2NiwiZXhwIjoxNjgxNTUyMDY2fQ"
 
 <!-- weaknesses -->
 
-## Weaknesses
+## What I didn't implement
 
-Could'nt use webpack and eslint due to time, coz have to implement the main features properly.
+ - Friends relations with each others (That was optional)
+
+## Code Weaknesses
+
+  - Backend: Didn't restricted db schema fields to some varchar limits
+  - Backend: Didn't applied checks for table fields ranges, if you populate the DB
+  - Frontend: Cache is not optimal due to again querying data to update cache
 
 <!-- improvements -->
 
 ## Improvements
 
-Repo name could be the Spacious 😅, anyway will be changed later.
+  - Repo name could be the Spacious 😅, anyway will be changed later.
+  - Backend: Code can be refactored in queries and mutation files espacially before returing the reponse to resolvers
+  - Backend: Schema tables fields can be restricted to some limits
+  - Frontend: Cache can be optimized more, using Graphql fragments
+
