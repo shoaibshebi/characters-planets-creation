@@ -1,15 +1,15 @@
 const knex = require("../connect");
 
 const paginationData = (reqData) => {
-  var pagination = {};
-  var pageSize = reqData.pageSize || 10;
-  var page = reqData.page || 1;
+  let pagination = {};
+  let pageSize = reqData.pageSize || 10;
+  let page = reqData.page || 1;
 
   if (pageSize > 100) pageSize = 100;
   if (page < 1) page = 1;
 
-  var offset = (page - 1) * pageSize;
-  var id = reqData.table[0] + "_id";
+  let offset = (page - 1) * pageSize;
+  let id = reqData.table[0] + "_id";
 
   return Promise.all([
     knex.count("* as count").from(reqData.table).first(),
@@ -20,8 +20,7 @@ const paginationData = (reqData) => {
       .limit(pageSize)
       .orderBy(id, "desc"),
   ]).then(([total, rows]) => {
-    var count = total.count;
-    var rows = rows;
+    let count = total.count;
     pagination.total = count;
     pagination.pageSize = pageSize;
     pagination.offset = offset;
