@@ -1,14 +1,15 @@
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useContext } from "react";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
-import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
-import AddButton from "../../components/AddButton/AddButton";
-import { useCreatePlanet, useGetPlanets } from "../../gql";
 import Loader from "../../components/Loader/Loader";
+import { useCreatePlanet, useGetPlanets } from "../../gql";
+import { LayoutContext } from "../../SpaciousLayout/Index";
+import AddButton from "../../components/AddButton/AddButton";
+import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 
 const AddModal = React.lazy(() => import("./components/AddModal/AddModal"));
 const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
@@ -16,6 +17,7 @@ const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
 function Planets() {
   const navigate = useNavigate();
   const location = useLocation();
+  const values = useContext(LayoutContext);
   const [cardData, setCardData] = useState({});
   const [newNodeId, setNewNodeId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,6 +48,7 @@ function Planets() {
     setMutationErr("");
   };
   const closeHandler = () => {
+    values.setCharModalOpen(false); //setting layout/parent props
     setModalOpen(false);
     navigate("/planets");
   };
@@ -80,7 +83,11 @@ function Planets() {
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
-  const characterAddHandler = () => {};
+  const characterAddHandler = () => {
+    console.log("in create handler");
+    values.setCharModalOpen(true); //setting layout/parent props
+    navigate("/characters");
+  };
 
   return (
     <>

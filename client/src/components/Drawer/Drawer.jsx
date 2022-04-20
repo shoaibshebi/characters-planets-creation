@@ -9,7 +9,7 @@ import CharacterTile from "../CharacterTile/CharacterTile";
 import DismissButton from "../DismissButton/DismissButton";
 import { tooltipTrim } from "../../utils/utils";
 
-function Drawer({ open, dataObj, handleClose }) {
+function Drawer({ open, dataObj, handleClose, addHandler }) {
   return (
     <Box
       className={cxs(classes.container, open ? classes.open : classes.closed)}
@@ -42,16 +42,15 @@ function Drawer({ open, dataObj, handleClose }) {
       </Box>
       {"characters" in dataObj && (
         <Grid container justifyContent="space-between">
-          <Typography variant="h6" className={classes.charsText} marginY={2}>
+          <Typography variant="h6" marginY={2}>
             Characters
           </Typography>
           <Typography
             variant="h6"
-            className={classes.charsText}
-            marginY={2}
-            pr={3}
+            onClick={addHandler}
+            className={classes.addText}
           >
-            {dataObj?.characters?.length}
+            +
           </Typography>
         </Grid>
       )}

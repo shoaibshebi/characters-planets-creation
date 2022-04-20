@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { Box, Typography, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useState, useEffect, Children, cloneElement } from "react";
+import React, { useState, useEffect, createContext } from "react";
 
 import classes from "./Index.module.scss";
 import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
 import { capitalize } from "../utils/utils";
 
-const Index = (props) => {
+export const LayoutContext = createContext({});
+
+const Index = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [pagesTitle, setPagesTitle] = useState("Planets");
@@ -40,12 +42,14 @@ const Index = (props) => {
             onClickHandler={primaryOnClickHandler}
           />
         </Grid>
-        {Children.map(props.children, (child) =>
-          cloneElement(child, {
-            charModalOpen: charModalOpen,
-            setCharModalOpen: setCharModalOpen,
-          })
-        )}
+        <LayoutContext.Provider
+          value={{
+            charModalOpen,
+            setCharModalOpen,
+          }}
+        >
+          {children}
+        </LayoutContext.Provider>
       </Box>
     </Box>
   );

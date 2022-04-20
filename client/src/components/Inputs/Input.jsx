@@ -13,7 +13,7 @@ const CustomAreaComponent = (props) => (
     cols="20"
     rows="5"
     wrap="hard"
-    maxlength="300"
+    maxLength="300"
   />
 );
 

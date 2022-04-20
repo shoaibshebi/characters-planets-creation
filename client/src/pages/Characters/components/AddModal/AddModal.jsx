@@ -49,7 +49,6 @@ function AddModal({ open, handleClose, mutationErr, handleCreateCharacter }) {
                   type="text"
                   errors={errors}
                   touched={touched}
-                  fieldtype="textarea"
                   placeholder={
                     field === "planet"
                       ? "Planet Code e.g. PI-NOE-01, Planet that character lives on"

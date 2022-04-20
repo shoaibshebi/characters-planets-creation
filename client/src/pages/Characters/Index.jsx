@@ -1,11 +1,12 @@
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useContext } from "react";
 
 import classes from "./Index.module.scss";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
+import { LayoutContext } from "../../SpaciousLayout/Index";
 import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 import AddButton from "../../components/AddButton/AddButton";
 import { useCreateCharacter, useGetCharacters } from "../../gql";
@@ -16,6 +17,7 @@ const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
 export default function Characters() {
   const navigate = useNavigate();
   const location = useLocation();
+  const values = useContext(LayoutContext);
   const [cardData, setCardData] = useState({});
   const [newNodeId, setNewNodeId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,6 +37,12 @@ export default function Characters() {
       setModalOpen(true);
     }
   }, [location]);
+  useEffect(() => {
+    if (values.charModalOpen) {
+      navigate("/characters/create");
+      setModalOpen(true);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) return <Loader />;
   if (error)
@@ -50,6 +58,7 @@ export default function Characters() {
   };
   const closeHandler = () => {
     setModalOpen(false);
+    values.setCharModalOpen(false); //setting layout/parent props
     setMutationErr("");
     navigate("/characters");
   };
