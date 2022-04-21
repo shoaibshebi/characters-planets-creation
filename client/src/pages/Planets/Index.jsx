@@ -52,9 +52,9 @@ function Planets() {
     setModalOpen(false);
     navigate("/planets");
   };
-  const handleCreatePlanet = (values) => {
+  const handleCreatePlanet = async (values) => {
     try {
-      createPlanet({
+      await createPlanet({
         variables: {
           planetInfo: {
             name: values.name,
@@ -74,9 +74,8 @@ function Planets() {
     }
   };
   const cardClickHandler = (code) => {
-    let cardData = data?.planets?.nodes.filter(
-      (planet) => planet.code === code
-    );
+    let cardData =
+      data && data?.planets?.nodes.filter((planet) => planet.code === code);
     setCardData({ ...cardData[0] });
     setDrawerOpen(true);
   };
@@ -106,20 +105,21 @@ function Planets() {
           handleClose={handleDrawerClose}
         />
       </Suspense>
-      {data?.planets?.nodes ? (
+      {data && data?.planets?.nodes ? (
         <Grid container spacing={2} className={classes.tilesContainer}>
-          {data?.planets?.nodes?.map((x, i) => (
-            <Grid item key={x.p_id}>
-              <Card
-                code={x.code}
-                title={x.name}
-                newNodeId={newNodeId === x.p_id}
-                image={x.picture_url}
-                population={x.population + ""}
-                clickHandler={cardClickHandler}
-              />
-            </Grid>
-          ))}
+          {data &&
+            data?.planets?.nodes?.map((x, i) => (
+              <Grid item key={x.p_id}>
+                <Card
+                  code={x.code}
+                  title={x.name}
+                  newNodeId={newNodeId === x.p_id}
+                  image={x.picture_url}
+                  population={x.population + ""}
+                  clickHandler={cardClickHandler}
+                />
+              </Grid>
+            ))}
         </Grid>
       ) : (
         <WhySoEmpty text="CREATE PLANET" createHandler={addHandler} />

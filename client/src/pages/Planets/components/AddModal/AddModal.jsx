@@ -60,7 +60,11 @@ function AddModal({ open, handleClose, mutationErr, handleCreatePlanet }) {
                 />
               ))}
               {mutationErr && (
-                <Typography variant="h6" className={classes.title} marginY={2}>
+                <Typography
+                  variant="h6"
+                  marginY={2}
+                  className={classes.createError}
+                >
                   {mutationErr}
                 </Typography>
               )}

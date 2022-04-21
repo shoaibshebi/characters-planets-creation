@@ -95,7 +95,6 @@ const useCreateCharacter = () => {
     {
       update(cache, { data: { createCharacter } }) {
         const { characters } = cache.readQuery({ query: GET_CHARACTERS });
-        console.log("created hook", createCharacter);
         //creating copies of diff objs as they we not extensible
         let createCharacterCpy = { ...createCharacter };
         createCharacterCpy.planet = {

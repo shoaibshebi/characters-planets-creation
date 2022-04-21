@@ -15,7 +15,7 @@ function App() {
         {["/characters", "/characters/create"].map((path, i) => (
           <Route key={i + path} path={path} element={<Characters />} />
         ))}
-        {/* If no route exsts */}
+        {/* If no route exists */}
         <Route
           path="*"
           element={

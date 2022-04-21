@@ -8,14 +8,13 @@ import { capitalize } from "../utils/utils";
 import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
 import DropDownField from "../components/Inputs/DropDownField";
 import { useGetPlanets } from "../gql";
-import Loader from "../components/Loader/Loader";
 
 export const LayoutContext = createContext({});
 
 const Index = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loading, data, error } = useGetPlanets();
+  const { data } = useGetPlanets();
   const [pagesTitle, setPagesTitle] = useState("Planets");
   const [selectedPlanet, setSelectedPlanet] = useState("All");
   const [charModalOpen, setCharModalOpen] = useState(false);
@@ -25,16 +24,11 @@ const Index = ({ children }) => {
     setPagesTitle(path);
   }, [location]);
 
-  if (loading) return <Loader />;
-  if (error)
-    return <Loader text={("Some thing bad happened.", error.message)} />;
-
   const primaryOnClickHandler = (text) => {
     setPagesTitle(text);
     navigate(`/${text.toLowerCase()}`);
   };
   const selectHandler = (e) => {
-    console.log(e.target.value);
     setSelectedPlanet(e.target.value);
   };
 
@@ -57,13 +51,15 @@ const Index = ({ children }) => {
               onClickHandler={primaryOnClickHandler}
             />
           </Grid>
-          {location.pathname === "/characters" && (
+          {(location.pathname === "/characters" ||
+            location.pathname === "/characters/create") && (
             <Grid item>
               <DropDownField
                 label="Select planet"
                 name="characters"
                 selectHandler={selectHandler}
                 options={[{ name: "All" }, ...data.planets.nodes]}
+                value={selectedPlanet}
               />
             </Grid>
           )}

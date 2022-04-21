@@ -59,7 +59,7 @@ export default function Characters() {
     } else {
       setChars(nodes);
     }
-  }, [values, nodes]);
+  }, [values.selectedPlanet, nodes]);
 
   if (loading) return <Loader />;
   if (error)
