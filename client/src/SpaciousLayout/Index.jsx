@@ -58,7 +58,7 @@ const Index = ({ children }) => {
                 label="Select planet"
                 name="characters"
                 selectHandler={selectHandler}
-                options={[{ name: "All" }, ...data.planets.nodes]}
+                options={data ? [{ name: "All" }, ...data?.planets?.nodes] : []}
                 value={selectedPlanet}
               />
             </Grid>
