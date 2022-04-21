@@ -42,7 +42,7 @@ KEY: 📦 NEW, 👌 IMPROVE, 🐛 FIX, 📖 DOC, 🚀 RELEASE, ✅ DONE, and �
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
+## 🚧 About The Project
 
 **Characters and Planets Creation application** is a full-stack web application written in Javascript; Frontend in React.js, Apollo-client, Mui and Backend in Node.js using Koa, Graphql, Postgres & Knex. Client dir (Frontend) is bootstraped with npx create-react-app. You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -82,11 +82,10 @@ Enthusiastic to help your new group of friends, you accept and here you go.
 
 ![Characters page](/client/public/app-image2.png)
 
-You can run it in development mode: docker-compose up --build
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## 🚀 Getting Started
 
 To get a local copy up and running follow these steps.
 
@@ -105,16 +104,46 @@ You'll need Docker and Docker Compose installed on your system.
 2. Build Docker containers locally:
 
   ```bash
-  docker-compose up -d --build OR docker-compose up --build
+  docker-compose up --build
+  ```
+  After building every thing, you might will receive error kind of this 
+  
+    ```bash
+    Node Sass could not find a binding for your current environment: Linux/musl 64-bit with Node.js 12.x
+    client_1  | 
+    client_1  | Found bindings for the following environments:
+    client_1  |   - OS X 64-bit with Node.js 12.x
+    client_1  |   - Linux/musl 64-bit with Node.js 14.x
+    ```
+  
+  then stop the docker-compose using cmd CTRL+C
+  Now run this command to build the binary for container  
+  
+  ```bash
+  docker-compose exec client npm rebuild node-sass
+  ```
+   
+   Now please run this command to check if doker-compose run the containers properly 
+   
+   ```bash
+  docker-compose up
+  //you will see this after succeffull run
+  client_1  | You can now view client in the browser.
+  client_1  | 
+  client_1  |   Local:            http://localhost:4002
+  client_1  |   On Your Network:  http://192.168.144.2:4002
+  client_1  | 
+  client_1  | Note that the development build is not optimized.
+  client_1  | To create a production build, use npm run build.
   ```
 
-3. Install knex globaly:
+3. Now open an other terminal with the same directory `characters-planets-creation` and Install some pkgs globaly running this cmd:
 
 ```bash
-  docker-compose exec api npm i -g knex
+  docker-compose exec api npm i -g knex && docker-compose exec api npm i --save knex && docker-compose exec api npm i --save pg
   ```
 
-3. Run migrations & seed:
+4. Now Run migrations & seed:
 
 ```bash
 docker-compose exec api knex migrate:up 20220415112937_create_planets.js
@@ -123,23 +152,39 @@ docker-compose exec api knex migrate:up 20220415113114_create_characters.js
 docker-compose exec api knex seed:run --specific=characters_seed.js
 ```
 
-## Usage
-
-```bash
-docker-compose up -d OR docker-compose up
-```
+Woohoo 🙌! you are done now. At that point you have a previous terminal running containers and you current terminal at which you just ran the migrations.
 
 Go to `http://localhost:4003/` to see the Frontend app.
 Go to `http://localhost:3000/graphql` to see the gql playground.
 🔴 Alert: Use this Authorization token if wanna test Api -> "Bearer eyJlbWFpbCI6InNob2FpYjQwMzA4OTFAZ21haWwuY29tIiwiaWQiOiI2MWQyYWI1ZjA0NjU4NTNmOTEzNGUyZWQiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1MDAxNjA2NiwiZXhwIjoxNjgxNTUyMDY2fQ"
 
+‼️ If some thing dos'nt work, please mail the issue with screen shots on this -> shoaib4030891@gmail.com
+
+## 🤸 Usage
+
+  In any case you stoped the docker-compose, run this command
+  ```bash
+  docker-compose up
+  
+  //NOTE: to stop and remove containers run this
+  docker-compose down
+  ```
+  
+## 🧪 To run tests
+
+```bash
+//go to client dir from root dir (where you currently are i.e characters-planets-creation) using this cmd
+cd client
+npm run test
+```
+
 <!-- weaknesses -->
 
-## What I didn't implement
+## 🤪 What I didn't implement
 
  - Friends relations with each others (That was optional)
 
-## Code Weaknesses
+## 🐛 Code Weaknesses
 
   - Backend: Didn't restricted db schema fields to some varchar limits
   - Backend: Didn't applied checks for table fields ranges, if you populate the DB
@@ -147,7 +192,7 @@ Go to `http://localhost:3000/graphql` to see the gql playground.
 
 <!-- improvements -->
 
-## Improvements
+## 🔧 Improvements
 
   - Repo name could be the Spacious 😅, anyway will be changed later.
   - Backend: Code can be refactored in queries and mutation files espacially before returing the reponse to resolvers
