@@ -2,14 +2,24 @@ import React from "react";
 
 import classes from "./SecondaryButton.module.scss";
 
-export default function SecondaryButton({
+interface Props {
+  text: string;
+  clicked: boolean;
+  clickHandler: () => void;
+  px: string;
+  py: string;
+  bgColor: string;
+  clor: string;
+}
+
+const SecondaryButton: React.FC<Props> = ({
   px,
   py,
   text,
   clor,
   bgColor,
   clickHandler,
-}) {
+}) => {
   return (
     <button
       type="submit"
@@ -23,10 +33,12 @@ export default function SecondaryButton({
         paddingRight: px,
         border: "none",
       }}
-      onClick={clickHandler}
+      onClick={() => clickHandler()}
       className={classes.secondaryButton}
     >
       {text}
     </button>
   );
-}
+};
+
+export default SecondaryButton;

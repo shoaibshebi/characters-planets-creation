@@ -5,7 +5,13 @@ import { Typography } from "@mui/material";
 
 import classes from "./PrimaryButton.module.scss";
 
-function PrimaryButton({ text, clicked, onClickHandler }) {
+interface Props {
+  text: string;
+  clicked: boolean;
+  onClickHandler: (text: string) => void;
+}
+
+const PrimaryButton: React.FC<Props> = ({ text, clicked, onClickHandler }) => {
   return (
     <Typography
       component="span"
@@ -15,7 +21,7 @@ function PrimaryButton({ text, clicked, onClickHandler }) {
       {text}
     </Typography>
   );
-}
+};
 
 PrimaryButton.propTypes = {
   text: PropTypes.string,
