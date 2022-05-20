@@ -9,9 +9,17 @@ import PrimaryButton from "../components/PrimaryButton/PrimaryButton";
 import DropDownField from "../components/Inputs/DropDownField";
 import { useGetPlanets } from "../gql";
 
-export const LayoutContext = createContext({});
+export const LayoutContext = createContext({
+  charModalOpen: null,
+  setCharModalOpen: null,
+  selectedPlanet: null,
+});
 
-const Index = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const Index: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data } = useGetPlanets();

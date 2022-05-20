@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 
 import classes from "./AddButton.module.scss";
 
-function AddButton({ br, clr, icon, bgclr, clickHandler }) {
+interface Props {
+  br: string;
+  icon: React.ReactNode;
+  clr: string;
+  bgclr: string;
+  clickHandler: () => void;
+}
+
+const AddButton: React.FC<Props> = ({ br, clr, icon, bgclr, clickHandler }) => {
   return (
     <p
       style={{ color: clr, borderRadius: br, backgroundColor: bgclr }}
@@ -13,7 +21,7 @@ function AddButton({ br, clr, icon, bgclr, clickHandler }) {
       {icon}
     </p>
   );
-}
+};
 
 AddButton.propTypes = {
   br: PropTypes.string,

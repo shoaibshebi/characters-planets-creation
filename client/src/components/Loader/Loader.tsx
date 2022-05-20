@@ -5,7 +5,11 @@ import { Grid, Typography, Box } from "@mui/material";
 import classes from "./Loader.module.scss";
 import planetLoaderIcon from "../../assets/images/planet-loader.svg";
 
-function Loader({ text }) {
+interface Props {
+  text?: string;
+}
+
+const Loader: React.FC<Props> = ({ text }) => {
   return (
     <Grid container className={classes.container}>
       <Box className={classes.card}>
@@ -16,7 +20,7 @@ function Loader({ text }) {
       </Typography>
     </Grid>
   );
-}
+};
 
 Loader.propTypes = {
   text: PropTypes.string,

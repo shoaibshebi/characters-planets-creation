@@ -5,12 +5,29 @@ import cxs from "classnames";
 import classes from "./Index.module.scss";
 import { capitalize } from "../../utils/utils";
 
-function DropDownField({ name, label, selectHandler, options, value }) {
+interface IOptions {
+  name: string;
+}
+interface Props {
+  name: string;
+  label: string;
+  selectHandler: (e: any) => void;
+  options: IOptions[];
+  value: string;
+}
+
+const DropDownField: React.FC<Props> = ({
+  name,
+  label,
+  selectHandler,
+  options,
+  value,
+}) => {
   return (
     <select
       name={name}
-      label={label}
-      onChange={selectHandler}
+      // label={label}
+      onChange={(e) => selectHandler(e)}
       className={cxs(classes.input, classes.selectInput)}
       value={value}
     >
@@ -21,7 +38,7 @@ function DropDownField({ name, label, selectHandler, options, value }) {
       ))}
     </select>
   );
-}
+};
 
 DropDownField.propTypes = {
   name: PropTypes.string,

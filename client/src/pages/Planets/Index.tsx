@@ -14,7 +14,7 @@ import WhySoEmpty from "../../components/WhySoEmpty/WhySoEmpty";
 const AddModal = React.lazy(() => import("./components/AddModal/AddModal"));
 const Drawer = React.lazy(() => import("../../components/Drawer/Drawer"));
 
-function Planets() {
+const Planets = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const values = useContext(LayoutContext);
@@ -40,7 +40,7 @@ function Planets() {
 
   if (loading) return <Loader />;
   if (error)
-    return <Loader text={("Some thing bad happened.", error.message)} />;
+    return <Loader text={`Some thing bad happened. ${error.message}`} />;
 
   const addHandler = () => {
     setModalOpen(true);
@@ -111,6 +111,7 @@ function Planets() {
             data?.planets?.nodes?.map((x, i) => (
               <Grid item key={x.p_id}>
                 <Card
+                  id={x.p_id}
                   code={x.code}
                   title={x.name}
                   newNodeId={newNodeId === x.p_id}
@@ -133,6 +134,6 @@ function Planets() {
       />
     </>
   );
-}
+};
 
 export default Planets;

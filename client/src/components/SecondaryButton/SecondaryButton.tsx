@@ -3,13 +3,12 @@ import React from "react";
 import classes from "./SecondaryButton.module.scss";
 
 interface Props {
-  text: string;
-  clicked: boolean;
-  clickHandler: () => void;
   px: string;
   py: string;
-  bgColor: string;
+  text: string;
   clor: string;
+  bgColor: string;
+  clickHandler?: () => void;
 }
 
 const SecondaryButton: React.FC<Props> = ({

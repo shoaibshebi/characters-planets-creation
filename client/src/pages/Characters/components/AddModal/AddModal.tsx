@@ -13,7 +13,19 @@ import DismissButton from "../../../../components/DismissButton/DismissButton";
 
 const Fields = ["name", "planet", "image", "description"];
 
-function AddModal({ open, handleClose, mutationErr, handleCreateCharacter }) {
+interface Props {
+  open: boolean;
+  handleClose: () => void;
+  mutationErr: string;
+  handleCreateCharacter: (values: object) => void;
+}
+
+const AddModal: React.FC<Props> = ({
+  open,
+  handleClose,
+  mutationErr,
+  handleCreateCharacter,
+}) => {
   return (
     <GeneralModal open={open} handleClose={handleClose}>
       <Grid container justifyContent="right">
@@ -93,13 +105,13 @@ function AddModal({ open, handleClose, mutationErr, handleCreateCharacter }) {
       </Formik>
     </GeneralModal>
   );
-}
+};
 
 AddModal.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   mutationErr: PropTypes.string,
-  handleCreatePlanet: PropTypes.func,
+  handleCreateCharacter: PropTypes.func,
 };
 
 export default AddModal;

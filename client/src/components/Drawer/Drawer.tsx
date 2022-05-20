@@ -9,7 +9,46 @@ import CharacterTile from "../CharacterTile/CharacterTile";
 import DismissButton from "../DismissButton/DismissButton";
 import { tooltipTrim } from "../../utils/utils";
 
-function Drawer({ open, dataObj, handleClose, addHandler }) {
+interface ICharacter {
+  c_id: number;
+  name: string;
+  picture_url: string;
+  description: string;
+  planet: IPlanet;
+}
+interface IPlanet {
+  name: string;
+}
+interface IDataObjCharacter {
+  name: string;
+  description: string;
+  population: number;
+  planet: IPlanet;
+  characters: ICharacter[];
+  picture_url: string;
+}
+interface IDataObjPlanet {
+  p_id: number;
+  name: string;
+  description: string;
+  code: number | string;
+  picture_url: string;
+  population: number | string;
+}
+interface Props {
+  open: boolean;
+  // dataObj: IDataObjPlanet | IDataObjCharacter;
+  dataObj: any;
+  addHandler: () => void;
+  handleClose: () => void;
+}
+
+const Drawer: React.FC<Props> = ({
+  open,
+  dataObj,
+  handleClose,
+  addHandler,
+}) => {
   return (
     <Box
       className={cxs(classes.container, open ? classes.open : classes.closed)}
@@ -27,14 +66,14 @@ function Drawer({ open, dataObj, handleClose, addHandler }) {
       <Typography variant="h6" className={classes.title} marginY={2}>
         {tooltipTrim(dataObj?.name, 15)}
       </Typography>
-      <Typography variant="p" className={classes.desc} marginY={2}>
+      <Typography variant="h6" className={classes.desc} marginY={2}>
         {dataObj.description}
       </Typography>
       <Box marginY={2}>
         <Typography variant="h6" className={classes.statsHead}>
           {"population" in dataObj ? "Population" : "Planet"}
         </Typography>
-        <Typography variant="p" className={classes.stats}>
+        <Typography variant="h6" className={classes.stats}>
           {"population" in dataObj
             ? dataObj?.population
             : dataObj?.planet?.name}
@@ -47,7 +86,7 @@ function Drawer({ open, dataObj, handleClose, addHandler }) {
           </Typography>
           <Typography
             variant="h6"
-            onClick={addHandler}
+            onClick={() => addHandler()}
             className={classes.addText}
           >
             +
@@ -56,7 +95,7 @@ function Drawer({ open, dataObj, handleClose, addHandler }) {
       )}
       {"characters" in dataObj && dataObj?.characters?.length ? (
         <Box className={classes.characters}>
-          {dataObj?.characters?.map((x, i) => (
+          {dataObj?.characters?.map((x) => (
             <CharacterTile
               key={x.c_id}
               title={x.name}
@@ -76,11 +115,11 @@ function Drawer({ open, dataObj, handleClose, addHandler }) {
       )}
     </Box>
   );
-}
+};
 
 Drawer.propTypes = {
   open: PropTypes.bool,
-  dataObj: PropTypes.object,
+  dataObj: PropTypes.any,
   handleClose: PropTypes.func,
 };
 

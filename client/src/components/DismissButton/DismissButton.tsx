@@ -4,7 +4,23 @@ import { Typography } from "@mui/material";
 
 import classes from "./DismissButton.module.scss";
 
-function DismissButton({ icon, clickHandler, pt, pb, pl, pr }) {
+interface Props {
+  icon: React.ReactNode;
+  clickHandler: () => void;
+  pt?: string;
+  pb?: string;
+  pl?: string;
+  pr?: string;
+}
+
+const DismissButton: React.FC<Props> = ({
+  icon,
+  clickHandler,
+  pt,
+  pb,
+  pl,
+  pr,
+}) => {
   return (
     <Typography
       component="span"
@@ -18,7 +34,7 @@ function DismissButton({ icon, clickHandler, pt, pb, pl, pr }) {
       {icon}
     </Typography>
   );
-}
+};
 
 DismissButton.propTypes = {
   icon: PropTypes.node,

@@ -10,7 +10,13 @@ const MyModal = styled(Modal)({
   },
 });
 
-const GeneralModal = ({ open, handleClose, children }) => {
+interface Props {
+  open: boolean;
+  handleClose: (arg: boolean) => void;
+  children: React.ReactNode;
+}
+
+const GeneralModal: React.FC<Props> = ({ open, handleClose, children }) => {
   const style = {
     color: "whitesmoke",
     justifyContent: "center",

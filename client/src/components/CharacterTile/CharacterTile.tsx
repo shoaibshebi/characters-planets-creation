@@ -5,7 +5,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { tooltipTrim } from "../../utils/utils";
 import classes from "./CharacterTile.module.scss";
 
-function CharacterTile({ title, description, img }) {
+interface Props {
+  title: string;
+  description: string;
+  img: string;
+}
+
+const CharacterTile: React.FC<Props> = ({ title, description, img }) => {
   return (
     <>
       <Box className={classes.container}>
@@ -17,7 +23,7 @@ function CharacterTile({ title, description, img }) {
             <Typography variant="h6" marginY={2} className={classes.title}>
               {tooltipTrim(title, 15)}
             </Typography>
-            <Typography variant="p" marginY={2}>
+            <Typography variant="h6" marginY={2}>
               {tooltipTrim(description, 27)}
             </Typography>
           </Grid>
@@ -25,7 +31,7 @@ function CharacterTile({ title, description, img }) {
       </Box>
     </>
   );
-}
+};
 
 CharacterTile.propTypes = {
   title: PropTypes.string,

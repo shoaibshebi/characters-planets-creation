@@ -5,7 +5,25 @@ import { Box, Typography } from "@mui/material";
 import classes from "./Card.module.scss";
 import { tooltipTrim } from "../../utils/utils";
 
-function Card({ id, title, code, image, newNodeId, population, clickHandler }) {
+interface Props {
+  id: number;
+  title: string;
+  code: number | string;
+  image: string;
+  newNodeId: boolean;
+  population: string;
+  clickHandler: (newNodeId: string | number) => void;
+}
+
+const Card: React.FC<Props> = ({
+  id,
+  title,
+  code,
+  image,
+  newNodeId,
+  population,
+  clickHandler,
+}) => {
   return (
     <Box className={classes.container} onClick={() => clickHandler(id ?? code)}>
       <Box className={classes.imgContainer}>
@@ -34,7 +52,7 @@ function Card({ id, title, code, image, newNodeId, population, clickHandler }) {
       </Box>
     </Box>
   );
-}
+};
 
 Card.propTypes = {
   id: PropTypes.number,

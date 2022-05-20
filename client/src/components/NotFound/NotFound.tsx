@@ -5,7 +5,12 @@ import { Grid, Typography } from "@mui/material";
 import classes from "./NotFound.module.scss";
 import planetLoaderIcon from "../../assets/images/planet-loader.svg";
 
-function NotFound({ text, code }) {
+interface Props {
+  text: string;
+  code: number | string;
+}
+
+const NotFound: React.FC<Props> = ({ text, code }) => {
   return (
     <Grid container className={classes.container}>
       <Typography variant="h1" className={classes.code}>
@@ -17,11 +22,11 @@ function NotFound({ text, code }) {
       </Typography>
     </Grid>
   );
-}
+};
 
 NotFound.propTypes = {
   text: PropTypes.string,
-  code: PropTypes.string,
+  code: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default NotFound;
